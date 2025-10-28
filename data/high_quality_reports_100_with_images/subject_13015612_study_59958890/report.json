@@ -1,0 +1,29 @@
+{
+  "subject_id": "13015612",
+  "study_id": "59958890",
+  "report_path": "files/p13/p13015612/s59958890.txt",
+  "findings": "There is a new right middle lobe consolidation.  A tiny focus of consolidation\n in the superior left lower lobe is new. Underlying interstitial prominence has\n increased.   No pleural effusion or pneumothorax is detected.  Heart size is\n within normal limits. The pulmonary arteries are more prominent than 1 day\n prior, likely secondary to underlying pulmonary parenchymal process.",
+  "impression": "Multifocal pneumonia. Increased underlying interstitial abnormality is likely\n secondary to underlying viral process.\n \n Findings were discussed with ___ by ___ by telephone at\n 05:23 on ___ at the time of discovery of these findings.",
+  "full_report_text": "                                 FINAL REPORT\n HISTORY:  ___-year-old female with flu-like symptoms, persistent fever, and\n abnormal lung exam.\n \n TECHNIQUE:  Frontal and lateral chest radiographs were obtained.\n \n COMPARISON:  ___.\n \n FINDINGS:\n \n There is a new right middle lobe consolidation.  A tiny focus of consolidation\n in the superior left lower lobe is new. Underlying interstitial prominence has\n increased.   No pleural effusion or pneumothorax is detected.  Heart size is\n within normal limits. The pulmonary arteries are more prominent than 1 day\n prior, likely secondary to underlying pulmonary parenchymal process.\n \n IMPRESSION:\n \n Multifocal pneumonia. Increased underlying interstitial abnormality is likely\n secondary to underlying viral process.\n \n Findings were discussed with ___ by ___ by telephone at\n 05:23 on ___ at the time of discovery of these findings.\n",
+  "status": "processed",
+  "findings_sentences": [
+    "There is a new right middle lobe consolidation.",
+    "A tiny focus of consolidation\n in the superior left lower lobe is new.",
+    "Underlying interstitial prominence has\n increased.",
+    "No pleural effusion or pneumothorax is detected.",
+    "Heart size is\n within normal limits.",
+    "The pulmonary arteries are more prominent than 1 day\n prior, likely secondary to underlying pulmonary parenchymal process."
+  ],
+  "impression_sentences": [
+    "Multifocal pneumonia.",
+    "Increased underlying interstitial abnormality is likely\n secondary to underlying viral process.",
+    "Findings were discussed with ___ by ___ by telephone at\n 05:23 on ___ at the time of discovery of these findings."
+  ],
+  "image_files": [
+    "image_1.jpg",
+    "image_2.jpg"
+  ],
+  "flag": 1.0,
+  "Unnamed: 3": NaN,
+  "filter_reason": "基本检查: 满足基本要求, 模型评估: true"
+}

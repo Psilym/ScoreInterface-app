@@ -1,0 +1,27 @@
+{
+  "subject_id": "19797687",
+  "study_id": "58892946",
+  "report_path": "files/p19/p19797687/s58892946.txt",
+  "findings": "There is retrocardiac opacity and right middle and lower lobe ill-defined\n opacities, concerning for pneumonia.  Blunting of the costophrenic angle on\n the left may also reflect small pleural effusion.  There is no pneumothorax. \n There is mild left apical scarring. The cardiac and mediastinal silhouettes\n are stable.",
+  "impression": "Multifocal pneumonia with a small left pleural effusion.",
+  "full_report_text": "                                 FINAL REPORT\n EXAMINATION:\n Chest:  Frontal and lateral views\n \n INDICATION:  ___F with AMS, hypoglycemia, productive cough  // CXR: eval for\n PNA\n \n TECHNIQUE:  Chest:  Frontal and Lateral\n \n COMPARISON:  Radiograph from ___.\n \n FINDINGS: \n \n There is retrocardiac opacity and right middle and lower lobe ill-defined\n opacities, concerning for pneumonia.  Blunting of the costophrenic angle on\n the left may also reflect small pleural effusion.  There is no pneumothorax. \n There is mild left apical scarring. The cardiac and mediastinal silhouettes\n are stable.\n \n IMPRESSION: \n \n Multifocal pneumonia with a small left pleural effusion.\n",
+  "status": "processed",
+  "findings_sentences": [
+    "There is retrocardiac opacity and right middle and lower lobe ill-defined\n opacities, concerning for pneumonia.",
+    "Blunting of the costophrenic angle on\n the left may also reflect small pleural effusion.",
+    "There is no pneumothorax.",
+    "There is mild left apical scarring.",
+    "The cardiac and mediastinal silhouettes\n are stable."
+  ],
+  "impression_sentences": [
+    "Multifocal pneumonia with a small left pleural effusion."
+  ],
+  "image_files": [
+    "image_1.jpg",
+    "image_2.jpg",
+    "image_3.jpg"
+  ],
+  "flag": 1.0,
+  "Unnamed: 3": NaN,
+  "filter_reason": "基本检查: 满足基本要求, 模型评估: true"
+}

@@ -1,0 +1,33 @@
+{
+  "subject_id": "16050305",
+  "study_id": "53154933",
+  "report_path": "files/p16/p16050305/s53154933.txt",
+  "findings": "Opacity at the left lung base concerning for a focal consolidation. No\n evidence of pleural effusion or pneumothorax.   The cardiomediastinal\n silhouette is moderately enlarged likely secondary to moderate cardiomegaly. \n No evidence of pulmonary edema.\n Imaged osseous structures are intact.  No evidence of free air below the\n diaphragm.  A moderate hiatal hernia is noted in the retrocardiac region.",
+  "impression": "1. Left lower lobe pneumonia.\n 2. Moderate cardiomegaly without evidence of pulmonary edema.\n 3. Moderate hiatal hernia.",
+  "full_report_text": "                                 FINAL REPORT\n EXAMINATION:\n Frontal and lateral chest radiograph\n \n INDICATION:  ___-year-old female with CHF and asthma presents with dyspnea. \n Evaluate for acute cardiopulmonary process.\n \n TECHNIQUE:  Chest PA and lateral\n \n COMPARISON:  Chest PA and lateral ___\n \n FINDINGS: \n \n Opacity at the left lung base concerning for a focal consolidation. No\n evidence of pleural effusion or pneumothorax.   The cardiomediastinal\n silhouette is moderately enlarged likely secondary to moderate cardiomegaly. \n No evidence of pulmonary edema.\n Imaged osseous structures are intact.  No evidence of free air below the\n diaphragm.  A moderate hiatal hernia is noted in the retrocardiac region.\n \n IMPRESSION:\n \n \n 1. Left lower lobe pneumonia.\n 2. Moderate cardiomegaly without evidence of pulmonary edema.\n 3. Moderate hiatal hernia.\n",
+  "status": "processed",
+  "findings_sentences": [
+    "Opacity at the left lung base concerning for a focal consolidation.",
+    "No\n evidence of pleural effusion or pneumothorax.",
+    "The cardiomediastinal\n silhouette is moderately enlarged likely secondary to moderate cardiomegaly.",
+    "No evidence of pulmonary edema.",
+    "Imaged osseous structures are intact.",
+    "No evidence of free air below the\n diaphragm.",
+    "A moderate hiatal hernia is noted in the retrocardiac region."
+  ],
+  "impression_sentences": [
+    "1.",
+    "Left lower lobe pneumonia.",
+    "2.",
+    "Moderate cardiomegaly without evidence of pulmonary edema.",
+    "3.",
+    "Moderate hiatal hernia."
+  ],
+  "image_files": [
+    "image_1.jpg",
+    "image_2.jpg"
+  ],
+  "flag": 1.0,
+  "Unnamed: 3": NaN,
+  "filter_reason": "基本检查: 满足基本要求, 模型评估: true"
+}

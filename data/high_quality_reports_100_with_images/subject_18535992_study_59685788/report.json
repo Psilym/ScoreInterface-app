@@ -1,0 +1,25 @@
+{
+  "subject_id": "18535992",
+  "study_id": "59685788",
+  "report_path": "files/p18/p18535992/s59685788.txt",
+  "findings": "The lungs are mildly hyperexpanded on a background of probable COPD.  Heart is\n top normal in size.  Bibasilar opacities and reticular interstitial pattern\n noted.  Small bilateral pleural effusions.",
+  "impression": "Bibasilar opacities mid and lower lungs may reflect pulmonary edema and\n intersititial lung disease.  Evidence of COPD.",
+  "full_report_text": "                                 FINAL REPORT\n INDICATION:  ___ yo F sudden onset dyspnea  // pulm edema\n \n TECHNIQUE:  Portable semi-upright AP chest\n \n COMPARISON:  None\n \n FINDINGS: \n \n The lungs are mildly hyperexpanded on a background of probable COPD.  Heart is\n top normal in size.  Bibasilar opacities and reticular interstitial pattern\n noted.  Small bilateral pleural effusions.\n \n IMPRESSION: \n \n Bibasilar opacities mid and lower lungs may reflect pulmonary edema and\n intersititial lung disease.  Evidence of COPD.\n",
+  "status": "processed",
+  "findings_sentences": [
+    "The lungs are mildly hyperexpanded on a background of probable COPD.",
+    "Heart is\n top normal in size.",
+    "Bibasilar opacities and reticular interstitial pattern\n noted.",
+    "Small bilateral pleural effusions."
+  ],
+  "impression_sentences": [
+    "Bibasilar opacities mid and lower lungs may reflect pulmonary edema and\n intersititial lung disease.",
+    "Evidence of COPD."
+  ],
+  "image_files": [
+    "image_1.jpg"
+  ],
+  "flag": 1.0,
+  "Unnamed: 3": NaN,
+  "filter_reason": "基本检查: 满足基本要求, 模型评估: true"
+}

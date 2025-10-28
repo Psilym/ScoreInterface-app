@@ -1,0 +1,419 @@
+subject_id,study_id,report_path,findings,impression,findings_sentences_count,impression_sentences_count,image_files_count,status,flag,Unnamed: 3,filter_reason
+16842228,52003729,files/p16/p16842228/s52003729.txt,"Decreased bilateral lung volumes.  Increased bilateral vascular congestion. 
+ Increased bibasilar atelectasis and increased bilateral pleural effusions may
+ be exaggerated in appearance by superimposed vascular congestion.  Cardiac
+ size is unchanged.  No pneumothorax.","Increased bilateral pulmonary vascular congestion with probable increased
+ bibasilar atelectasis and associated effusions.",5,1,2,processed,1,,"基本检查: 满足基本要求, 模型评估: true"
+19797687,58892946,files/p19/p19797687/s58892946.txt,"There is retrocardiac opacity and right middle and lower lobe ill-defined
+ opacities, concerning for pneumonia.  Blunting of the costophrenic angle on
+ the left may also reflect small pleural effusion.  There is no pneumothorax. 
+ There is mild left apical scarring. The cardiac and mediastinal silhouettes
+ are stable.",Multifocal pneumonia with a small left pleural effusion.,5,1,3,processed,1,,"基本检查: 满足基本要求, 模型评估: true"
+11395833,57635373,files/p11/p11395833/s57635373.txt,"The left hemidiaphragm is elevated. There are relatively low lung volumes and
+ mild right base atelectasis. Right basilar opacity projecting over the medial
+ right lung base with possible air bronchograms, underlying pneumonia or
+ aspiration not excluded. No large pleural effusion or pneumothorax seen. The
+ mediastinum is somewhat shifted to the right more so than patient position,
+ this could relate to the elevated left diaphragm.","Elevated left hemidiaphragm and bibasilar atelectasis. Additional focus of
+ opacity in the medial right lung base with possible air bronchograms could be
+ due to infection or aspiration.",5,2,2,processed,1,,"基本检查: 满足基本要求, 模型评估: true"
+14464310,57763469,files/p14/p14464310/s57763469.txt,"There may be trace pleural effusions.  Basilar atelectasis is noted
+ without definite focal consolidation.  There is no evidence of pneumothorax. 
+ The cardiac and mediastinal silhouettes are unremarkable.  Flattening of the
+ diaphragms are consistent with chronic obstructive pulmonary disease. 
+ Relative lucency of the upper lobes is likely due to pulmonary emphysema.","1.  Blunting of the bilateral costophrenic angles, possible trace pleural
+ effusions.  Basilar atelectasis.
+ 2.  COPD.",6,5,2,processed,1,,"基本检查: 满足基本要求, 模型评估: true"
+18531331,52019588,files/p18/p18531331/s52019588.txt,"The heart is moderately enlarged.  The mediastinal contours are within normal
+ limits.  Vascular indistinctness and right basilar haziness likely reflect
+ asymmetric pulmonary edema.  Bilateral pleural effusions are small, right
+ greater than left.  Patchy opacities in the lung bases likely reflect
+ atelectasis.  More focal opacification in the right mid lung field could
+ reflect fluid loculated within the fissure, but infection or an underlying
+ mass lesion cannot be completely excluded.  No pneumothorax is detected. 
+ There are no acute osseous abnormalities.","1. Probable mild asymmetric pulmonary edema right worse than left.
+ 
+ 2. Small bilateral pleural effusions, right greater than left.
+ 
+ 3. Focal opacification within the right mid lung field could reflect fluid
+ loculated within the fissure.  Infection or a mass lesion cannot be completely
+ excluded, and further assessment with a lateral view may be helpful.  
+ 
+ 4. Patchy bibasilar airspace opacities, likely atelectasis.",8,9,1,processed,1,,"基本检查: 满足基本要求, 模型评估: true"
+15952888,57945451,files/p15/p15952888/s57945451.txt,"Low lung volumes.  Bibasilar opacities likely represent atelectasis.  No focal
+ consolidations.  The pulmonary vasculature is normal.  The right mediastinum
+ appears enlarged, which may be rotational.  Moderate-sized hiatal hernia is
+ unchanged.  No pneumothorax.","1. Low lung volumes and bibasilar atelectasis, but no focal consolidations.
+ 2. Right mediastinal enlargement, which may be rotational, but repeat
+ radiographs with improved positioning should be obtained.
+ 3. Moderate-sized hiatal hernia.",7,6,1,processed,1,,"基本检查: 满足基本要求, 模型评估: true"
+18044383,52177186,files/p18/p18044383/s52177186.txt,"A left chest cardiac device with associated dual leads overlying the right
+ atrium and ventricle is noted.  The cardiac silhouette is mildly enlarged. 
+ Aortic arch calcifications are noted.  The hila are within normal limits.
+ 
+ There is likely a trace right pleural effusion. There is blunting of the left
+ lateral costophrenic angle extending superiorly with a configuration
+ suggesting component of effusion, potentially loculated or with associated
+ pleural thickening.  Best seen on the lateral view is increased opacity seen
+ posteriorly over the mid thoracic spine with a suspected air-fluid level
+ superiorly.
+ 
+ There is diffuse chronic interstitial abnormality which may reflect sequelae
+ of underlying chronic lung disease or chronic pulmonary edema.  Retrocardiac
+ opacity likely reflects atelectasis.  Otherwise, there is no focal lung
+ consolidation.  There is pleural parenchymal scarring at the lung apices.","1. Small right pleural effusion and suspected moderate left pleural effusion
+ which may be loculated or associated with pleural thickening.
+ 2. Opacity seen posteriorly on the lateral view with a suspected air-fluid
+ level raising possibility of a loculated hydropneumothorax.
+ 3. Diffuse pulmonary interstitial abnormality may reflect sequelae of chronic
+ edema.  Currently, no overt pulmonary edema.
+ 
+ RECOMMENDATION(S):  Chest CT suggested for further characterization.",11,8,2,processed,1,,"基本检查: 满足基本要求, 模型评估: true"
+12927172,57379406,files/p12/p12927172/s57379406.txt,"There are new bibasilar airspace opacities, left greater than right.  There
+ are small areas of increased lucency within these constellation, raising
+ concern for item cavitation.  There is no pneumothorax.  The heart and
+ mediastinum are within normal limits despite the projection.  A radiopaque
+ TIPS catheter projects over the right upper quadrant.  A nasogastric tube
+ enters the distal stomach, tip not visualized.","New bibasilar airspace opacities with possible cavitation are compatible with
+ multifocal, potentially necrotizing pneumonia.  A chest CT may be done for
+ further evaluation.",6,2,1,processed,1,,"基本检查: 满足基本要求, 模型评估: true"
+16640750,58883440,files/p16/p16640750/s58883440.txt,"There is a linear right basilar opacity most suggestive of atelectasis.
+ Increased mixed lucency and opacity seen in the retrocardiac region suggesting
+ a moderate size hiatal hernia. Superiorly, the lungs are clear. Cardiac
+ silhouette is mildly enlarged but likely exaggerated by technique. Mid to
+ lower thoracic vertebroplasty changes are noted.","Probable moderate hiatal hernia and right basilar atelectasis without definite
+ superimposed acute cardiopulmonary process.",5,1,1,processed,1,,"基本检查: 满足基本要求, 模型评估: true"
+13015612,59958890,files/p13/p13015612/s59958890.txt,"There is a new right middle lobe consolidation.  A tiny focus of consolidation
+ in the superior left lower lobe is new. Underlying interstitial prominence has
+ increased.   No pleural effusion or pneumothorax is detected.  Heart size is
+ within normal limits. The pulmonary arteries are more prominent than 1 day
+ prior, likely secondary to underlying pulmonary parenchymal process.","Multifocal pneumonia. Increased underlying interstitial abnormality is likely
+ secondary to underlying viral process.
+ 
+ Findings were discussed with ___ by ___ by telephone at
+ 05:23 on ___ at the time of discovery of these findings.",6,3,2,processed,1,,"基本检查: 满足基本要求, 模型评估: true"
+17223646,53329796,files/p17/p17223646/s53329796.txt,"Widening of the mediastinum, particularly the right mediastinal contour is due
+ to a large infiltrative mediastinal mass, better assessed on the prior CT
+ performed the same day. A right apical mass is also demonstrated. A large
+ right pleural effusion with right basilar opacity compatible with atelectasis
+ is again seen.  Small left pleural effusion is noted. There is mild prominence
+ of the interstitial markings within the left lung which could suggest mild
+ volume overload.  No pneumothorax is identified.  Heart size is difficult to
+ assess given the presence of the large right pleural effusion.  Numerous
+ compression deformities are seen within the imaged thoracolumbar spine, better
+ assessed on the CT.  Remote right-sided rib fractures are present.","Large mediastinal mass and right apical mass compatible with malignancy. 
+ Large right pleural effusion and small left pleural effusion with associated
+ right basilar atelectasis.  Possible mild fluid overload. Numerous compression
+ fractures within the imaged thoracolumbar spine.",9,4,2,processed,1,,"基本检查: 满足基本要求, 模型评估: true"
+15540774,59501332,files/p15/p15540774/s59501332.txt,"A calcified nodule is noted projecting adjacent to the right hilum.
+ Dense calcified foci also project within the right hilar structures
+ themselves.  There are linear reticular lines radiating from both apical
+ regions, more noticeable on the right with slight upward traction of bilateral
+ hila.  No consolidation or edema is evident.  The mediastinum is otherwise
+ unremarkable.  The cardiac silhouette is top normal for size.  No effusion or
+ pneumothorax is noted.  The osseous structures are unremarkable.","Fibrotic changes of both lung apices as well as the calcified
+ nodules and lymph nodes likely indicate prior granulomatous infection,
+ possibly tuberculosis.  Correlate clinically with history.",8,2,3,processed,1,,"基本检查: 满足基本要求, 模型评估: true"
+15903977,56427432,files/p15/p15903977/s56427432.txt,"Patient's chin obscures the lung apices.  There is perihilar opacity with
+ indistinct pulmonary vascular markings.  Blunting of the costophrenic angles
+ could represent small effusions.  Lucency projecting over the cardiac
+ silhouette is compatible with large hiatal hernia.  No acute osseous
+ abnormalities.","Mild to moderate pulmonary edema.  Possible small pleural effusions.  Large
+ hiatal hernia.",5,3,1,processed,1,,"基本检查: 满足基本要求, 模型评估: true"
+11540785,54005480,files/p11/p11540785/s54005480.txt,"There is severe rightward mediastinal shift with elevation of the
+ left hemidiaphragm.  No pneumothorax is detected on this single view. 
+ Opacification at the right lung base appears mass like.  There is
+ opacification of the left lung apex with an appearance suggestive of
+ atelectasis, although incompletely evaluated on this study.  Hardware projects
+ over the epigastric region.  Dilated loops of bowel are partially imaged.","Severe rightward mediastinal shift with elevation of the left
+ hemidiaphragm and left apical volume loss.  Density at the right lung base of
+ indeterminate etiology.  Further evaluation is recommended with CT if
+ clinically feasible.
+ 
+ Findings reported by ___ to Dr. ___ in person at 11:00 a.m. on
+ ___ at the time of discovery of these findings.",6,7,1,processed,1,,"基本检查: 满足基本要求, 模型评估: true"
+18374712,59940481,files/p18/p18374712/s59940481.txt,"Heart size is mildly enlarged.  The mediastinal and hilar contours are
+ unremarkable.  Pulmonary vasculature is not engorged.  Focal opacity within
+ the left lower lobe is concerning for pneumonia combined with partial
+ collapse.  Minimal patchy opacity in the right lower lobe may also reflect an
+ additional site of infection.  There is no pleural effusion or pneumothorax. 
+ No acute osseous abnormalities seen.  Clips in the right upper quadrant
+ abdomen indicate prior cholecystectomy.","Left lower lobe focal opacity concerning for pneumonia and partial collapse. 
+ Patchy right basilar opacity may reflect an additional site of infection. 
+ Followup radiographs after treatment are recommended to ensure resolution of
+ this finding.",8,3,3,processed,1,,"基本检查: 满足基本要求, 模型评估: true"
+15624189,51323690,files/p15/p15624189/s51323690.txt,"The heart size is mildly enlarged.  The aorta is tortuous and calcified. 
+ Rightward tracheal deviation at the level of the thoracic inlet may be due to
+ underlying left thyroid lobe enlargement.  There is mild pulmonary vascular
+ congestion.  Small bilateral pleural effusions are noted.  Patchy opacities in
+ the lung bases may reflect atelectasis.  There is no pneumothorax.  Multilevel
+ degenerative changes are seen in the thoracic spine.  There is also mild
+ anterior wedging of a low thoracic vertebral body.","Mild pulmonary vascular engorgement with small bilateral pleural effusions and
+ bibasilar atelectasis.",9,1,2,processed,1,,"基本检查: 满足基本要求, 模型评估: true"
+15706391,59860431,files/p15/p15706391/s59860431.txt,"There is bilateral hyperexpansion of the lungs as well as bilateral upper lobe
+ volume loss and associated apical scarring.  A poorly-defined opacity is
+ identified in the right middle lobe, partially obscuring the right heart
+ border, and is associated with local bronchial wall thickening.  There is no
+ pleural effusion, pneumothorax, or pulmonary edema identified.  The heart size
+ is normal.  No bony abnormality is detected.","Right middle lobe opacity suggestive of pneumonia.  A follow up chest x-ray is
+ recommended in ___ weeks following completion of antibiotic therapy to
+ document resolution.",5,2,2,processed,1,,"基本检查: 满足基本要求, 模型评估: true"
+13724584,50357332,files/p13/p13724584/s50357332.txt,"Worsening multifocal areas of consolidation are present, including
+ a dominant opacity in the right infrahilar region involving portions of the
+ right lower and right middle lobes.  Additionally, relatively symmetrical
+ perihilar opacities have progressed in the interval as well as an area of
+ opacity in the left retrocardiac region.  Small pleural effusions have
+ increased in size.","Worsening multifocal pulmonary opacities, likely a combination of
+ pulmonary edema and pneumonia.  Bilateral small pleural effusions.",3,2,1,processed,1,,"基本检查: 满足基本要求, 模型评估: true"
+19344311,50165498,files/p19/p19344311/s50165498.txt,"Heart size is mildly enlarged.  The aorta is tortuous.  Pulmonary vasculature
+ is not engorged.  Focal streaky opacities seen within the right hilar region
+ as well as patchy opacities in the lung bases, more pronounced on the right. 
+ There is a small right pleural effusion.  No pneumothorax is clearly evident. 
+ Extensive degenerative changes are noted involving both glenohumeral joints,
+ more pronounced on the right.","Streaky right upper lobe opacity may reflect an area of infection or
+ aspiration.  Patchy bibasilar airspace opacities could reflect areas of
+ atelectasis, though additional areas of infection or aspiration cannot be
+ excluded.
+ 
+ RECOMMENDATION(S):  Follow-up imaging with radiographs are recommended and if
+ there is persistence of these findings after treatment, CT is suggested.",7,3,1,processed,1,,"基本检查: 满足基本要求, 模型评估: true"
+16234431,54343914,files/p16/p16234431/s54343914.txt,"Heart is upper limits of normal in size, is accompanied by
+ pulmonary vascular congestion, diffuse interstitial edema, and more confluent
+ perihilar and basilar opacities likely due to edema as well.  Moderate-sized
+ bilateral pleural effusions are also demonstrated.","Moderate pulmonary edema and pleural effusions.  Followup
+ radiograph after diuresis may be helpful to confirm resolution and to exclude
+ other co-existing process such as aspiration.",2,2,2,processed,1,,"基本检查: 满足基本要求, 模型评估: true"
+15389058,58995261,files/p15/p15389058/s58995261.txt,"There hazy perihilar and bibasilar opacities as well small bilateral pleural
+ effusions.  More dense consolidation seen at the left lung base medially. 
+ Mild cardiac enlargement is noted, likely slightly accentuated by lower lung
+ volumes.  No acute osseous abnormalities.","Pulmonary edema with small bilateral pleural effusions.  Superimposed
+ infection would be difficult to exclude, followup particularly at the left
+ lung base.  Followup after treatment suggested to ensure resolution.",4,3,2,processed,1,,"基本检查: 满足基本要求, 模型评估: true"
+12721193,58517469,files/p12/p12721193/s58517469.txt,"The heart is again enlarged.  A moderate interstitial abnormality
+ is consistent with pulmonary edema.  In addition to an existing loculated
+ pleural effusion along the lateral right lower chest, there is an increasing
+ moderate-sized pleural effusion which probably has a free-flowing component,
+ but also likely a loculated element potentially along the right upper lateral
+ chest.  However, some of this appearance may be due to parenchymal
+ consolidation.  The left base is also newly opacified, which may correspond to
+ consolidation, loculated pleural effusion or both.  There is no pneumothorax.","Findings consistent with pulmonary edema and new multifocal
+ opacities, for the most part suggestive of pleural effusions including
+ suspected loculated elements, as well as atelectasis.  One or more pneumonic
+ consolidations, potentially infectious, are not excluded, however.",6,2,2,processed,1,,"基本检查: 满足基本要求, 模型评估: true"
+15553257,53314113,files/p15/p15553257/s53314113.txt,"AP upright and lateral chest radiographs demonstrate diffuse bilateral
+ interstitial lung markings likely reflective of mild pulmonary edema.
+ Obscuration of the right heart border likely reflects atelectatic changes,
+ although early consolidation cannot be excluded. Elevation of the left
+ hemidiaphragm is noted with atelectatic changes at the left lung base. No
+ large pleural effusion is identified. Patient is status post median
+ sternotomy. Prominence of the mediastinum likely reflects dilated or tortuous
+ aorta.  Large gastric air bubble is seen.","Mild pulmonary edema and atelectatic changes. Obscuration of the right heart
+ border maybe due to atelectasis, though early pneumonia cannot entirely be
+ excluded.",7,2,2,processed,1,,"基本检查: 满足基本要求, 模型评估: true"
+10364180,58125228,files/p10/p10364180/s58125228.txt,"Cardiac silhouette is mildly enlarged, more so than on ___ with pulmonary vascular engorgement and interstitial edema superimposed
+ on chronic pulmonary fibrosis.  There is a left-sided pleural effusion along
+ with left lower lobe consolidation as well as bilateral perihilar
+ consolidations worrisome for pneumonia.  There is no pneumothorax.","Pulmonary edema with concurrent multifocal pneumonia on a
+ background of chronic pulmonary fibrosis.",3,1,1,processed,1,,"基本检查: 满足基本要求, 模型评估: true"
+17928433,57401813,files/p17/p17928433/s57401813.txt,"There is mild cardiomegaly with calcification of the aortic knob
+ and mitral annulus.  The mediastinal and hilar contours are otherwise
+ unremarkable.  There is no pneumothorax or large pleural effusion.  There is a
+ large opacity in the right lower lung zone concerning for pneumonia.  Mild
+ pulmonary edema is also present.","Findings suggesting right lower lobe pneumonia with superimposed
+ mild pulmonary edema.",5,1,1,processed,1,,"基本检查: 满足基本要求, 模型评估: true"
+11089893,56503095,files/p11/p11089893/s56503095.txt,"PA and lateral views the chest provided demonstrate bilateral lower lobe
+ consolidation concerning for worsening pneumonia.  Airspace opacities also
+ suspected in the right upper lobe.  There are pleural effusions which are
+ small though slightly increased from prior.  There may be a component of lower
+ lobe atelectasis as well.  The heart and mediastinal contour appears stable. 
+ Bony structures are intact.  No free air below the right hemidiaphragm.",Worsening multifocal pneumonia with small bilateral pleural effusions.,7,1,2,processed,1,,"基本检查: 满足基本要求, 模型评估: true"
+11600263,51397702,files/p11/p11600263/s51397702.txt,"There is an approximately 4-cm irregular central left hilar mass
+ which is highly concerning for primary lung malignancy.  It is associated with
+ post-obstructive collapse of the lingula and partial collapse of the left
+ upper lobe.  Within the aerated portion of the left upper lung, there is a
+ combined alveolar and interstitial pattern suggesting possible re-expansion
+ edema or a post-obstructive pneumonia.   Underlying component of lymphangitic
+ spread is difficult to exclude. There is a small quantity of residual pleural
+ effusion seen on the left side.  The cardiomediastinal silhouette is shifted
+ to the left.","1.  Large central left hilar mass concerning for primary lung malignancy with
+ postobstructive atelectasis.
+ 2.  Re-expansion edema vs. post-obstructive pneumonia in the left upper lung
+ region.
+ 3.  Small residual left-sided effusion.
+ 4.  No pneumothorax.
+ 
+ These findings were Dr. ___ at 3:05PM via phone by ___.",6,11,2,processed,1,,"基本检查: 满足基本要求, 模型评估: true"
+18935678,58351636,files/p18/p18935678/s58351636.txt,"Heart size is moderately enlarged with mild tortuosity of the
+ thoracic aorta.  There is central pulmonary vascular congestion with mild
+ interstitial pulmonary edema.  There is a right lower lobe perihilar
+ consolidation overlying the spine on lateral view suspicious for pneumonia. 
+ Pleural surfaces are clear without effusion or pneumothorax.","Pulmonary vascular congestion and moderate interstitial edema. 
+ Right perihilar lower lobe consolidation with lateral correlate compatible
+ with pneumonia.  Recommmend repeat after treatment to document resolution.",4,3,3,processed,1,,"基本检查: 满足基本要求, 模型评估: true"
+18600365,55290869,files/p18/p18600365/s55290869.txt,"Right PICC line tip at the mid to lower SVC.  Postoperative changes right
+ upper quadrant.  There is large partially loculated right pleural effusion. 
+ Right basilar, suprahilar pulmonary opacity, likely atelectasis given shift of
+ the trachea to the right indicating volume loss, component of pneumonitis
+ cannot be excluded in the appropriate clinical setting.  There is tiny left
+ pleural effusion or thickening, stable.  Left lung is clear.  Normal pulmonary
+ vascularity.","Large, partially loculated right pleural effusion, with areas of right lung
+ atelectasis and volume loss ; component of pneumonitis cannot be excluded in
+ the appropriate clinical setting.",7,1,1,processed,1,,"基本检查: 满足基本要求, 模型评估: true"
+10710233,54164740,files/p10/p10710233/s54164740.txt,"Single frontal radiograph of the chest the mediastinum is shifted to the right
+ with opacification along the right heart border likely representing volume
+ loss in the left lower lobe and middle lobe related to atelectasis.  There is
+ a moderate right pleural effusion.  Opacity at right base could represent a
+ combination of atelectasis effusion.  There is a convex border to the left
+ mediastinum reflecting the opacity seen on CT in the left lower lobe
+ consistent with  rounded atelectasis.  No left pleural effusion.  No
+ pneumothorax.","Moderate right pleural effusion with volume loss in the right lower and middle
+ lobes and opacity at the right base and left lower lung (better seen on CT)
+ likely atelectasis.",6,1,1,processed,1,,"基本检查: 满足基本要求, 模型评估: true"
+10449497,54218671,files/p10/p10449497/s54218671.txt,"There are low lung volumes, accounting for some bronchovascular
+ crowding.  Increased interstitial markings are seen but no focal opacities. 
+ Bilateral pleural effusions, right worse than left, with associated
+ atelectasis are better assessed in prior CT.  There is no pneumothorax.","1.  Bilateral pleural effusions with concurrent bibasilar atelectases, right
+ worse than left.
+ 2.  Increased interstitial and bronchovascular markings might represent fluid
+ overload/interstitial edema.",4,4,2,processed,1,,"基本检查: 满足基本要求, 模型评估: true"
+19860841,53896157,files/p19/p19860841/s53896157.txt,"There are diffuse airspace opacities throughout the left lung as well as a
+ more focal airspace opacity in the right mid lung.  There is a small to
+ moderate left pleural effusion and pulmonary vascular congestion.  Apparent
+ elevation of left hemidiaphragm could reflect a subpulmonic component of the
+ effusion.  There is no pneumothorax.  .  Heart size is top normal and note is
+ made of distension of the azygos vein. There is no acute osseus abnormality.","1.  Asymmetrically distributed airspace opacities predominantly affecting the
+ left lung, concerning for massive aspiration in the setting of recent
+ overdose.  Asymmetrical distribution of pulmonary edema is considered less
+ likely.
+ 
+ 2.  Pulmonary vascular congestion and small to moderate left pleural effusion.",7,5,1,processed,1,,"基本检查: 满足基本要求, 模型评估: true"
+19398915,57119926,files/p19/p19398915/s57119926.txt,"There is a moderate right pleural effusion that has increased compared to
+ prior exam.  There is volume loss in the right lung and consolidation.  There
+ is alveolar infiltrate in the left lower lung.  There is a small left
+ effusion.  There is mild pulmonary vascular redistribution.","Bilateral infiltrates right greater than left with bilateral effusions right
+ greater than left.",5,1,1,processed,1,,"基本检查: 满足基本要求, 模型评估: true"
+19655295,53065624,files/p19/p19655295/s53065624.txt,"There are increased bilateral pleural effusions and bibasilar
+ opacities.  Although these likely contain a component of compressive
+ atelectasis, infection cannot be excluded.  The right lower lung opacity
+ projecting above the effusion demostrates a fluffy appearance more concerning
+ for pneumonia or aspiration.  There has been interval near-complete resolution
+ of the left perihilar opacity.  No pneumothorax is seen.  Heart size is
+ difficult to evaluate in the setting of these overlying opacities.","Bilateral pleural effusions and bibasilar opacities, which may
+ represent aspiration or pneumonia, likely with a component of ateletasis.",6,1,1,processed,1,,"基本检查: 满足基本要求, 模型评估: true"
+15520884,50757891,files/p15/p15520884/s50757891.txt,"Lung volumes are low. Heart size remains mildly enlarged with a left
+ ventricular predominance. Mediastinal and hilar contours are unchanged. Mild
+ pulmonary vascular congestion is present. Patchy opacities in the lung bases
+ may reflect areas of atelectasis but infection is not excluded. Linear opacity
+ within the periphery of the right mid lung field likely reflects subsegmental
+ atelectasis.  Trace bilateral pleural effusions are noted. No pneumothorax is
+ present. Partially imaged is an inferior vena cava filter within the upper
+ abdomen. Mild to mold moderate multilevel degenerative changes are seen in the
+ thoracic spine.","Low lung volumes with mild pulmonary vascular congestion, small bilateral
+ pleural effusions, and patchy opacities in the lung bases, likely atelectasis
+ though infection is not excluded.",10,1,2,processed,1,,"基本检查: 满足基本要求, 模型评估: true"
+16050305,53154933,files/p16/p16050305/s53154933.txt,"Opacity at the left lung base concerning for a focal consolidation. No
+ evidence of pleural effusion or pneumothorax.   The cardiomediastinal
+ silhouette is moderately enlarged likely secondary to moderate cardiomegaly. 
+ No evidence of pulmonary edema.
+ Imaged osseous structures are intact.  No evidence of free air below the
+ diaphragm.  A moderate hiatal hernia is noted in the retrocardiac region.","1. Left lower lobe pneumonia.
+ 2. Moderate cardiomegaly without evidence of pulmonary edema.
+ 3. Moderate hiatal hernia.",7,6,2,processed,1,,"基本检查: 满足基本要求, 模型评估: true"
+11704538,58309595,files/p11/p11704538/s58309595.txt,"The heart is moderately enlarged.  There is pulmonary vascular redistribution
+ with ill-defined vasculature and patchy areas of alveolar infiltrate
+ bilaterally.  There is a small left pleural effusion.  There is no definite
+ right effusion.  There is volume loss at both bases.",CHF.  Underlying infectious infiltrate can't be excluded.,5,2,1,processed,1,,"基本检查: 满足基本要求, 模型评估: true"
+14929191,55759109,files/p14/p14929191/s55759109.txt,"Bilateral parenchymal opacities, most pronounced in the right perihilar region
+ is concerning for infection given the provided history.  Increased opacities
+ in the bilateral infrahilar regions could be infection or aspiration. 
+ Horizontal linear opacity projecting over the right mid lung may be focal
+ scarring.  The heart remains enlarged.  Pulmonary vascular congestion
+ persists.  9-mm opacity just to the right of the trachea is probably a vessel
+ on-end, although could also be a nodule.  There may be a trace right pleural
+ effusion on the lateral view.  No large pleural effusion or pneumothorax.
+ 
+ Severe levoconvex scoliosis of the upper thoracic spine, mild dextroconvex
+ scoliosis of the lower thoracic spine, and mild levoconvex scoliosis of the
+ upper lumbar spine is overall unchanged with associated severe distortion of
+ the thoracic cage and appearance of the mediastinum.  The bones are diffusely
+ demineralized, making it difficult to assess for fractures; however,
+ significant loss of vertebral body height at multiple levels in the thoracic
+ spine is noted and appears to have been present on the CT from ___.
+ 
+ The stomach is distended with fluid and gas.","1.  Findings concerning for multifocal infection and aspiration.
+ 2.  Multiple thoracic vertebral body compression deformities.
+ 3.  Severe cardiomegaly, unchanged.
+ 4.  Markedly distended stomach.",11,8,3,processed,1,,"基本检查: 满足基本要求, 模型评估: true"
+13166275,59600302,files/p13/p13166275/s59600302.txt,"Lung volumes are reduced.  The heart size is mildly enlarged.  Mediastinal
+ contours are unremarkable.  There is bronchovascular crowding, and probable
+ mild pulmonary vascular congestion.  Streaky patchy opacities in the lung
+ bases could reflect atelectasis.  There may be minimal blunting of the right
+ costophrenic angle, suggestive of a trace effusion.  No pneumothorax is
+ identified.","Low lung volumes with probable mild pulmonary vascular congestion.  Patchy
+ bibasilar airspace opacities could reflect atelectasis.  Likely small right
+ pleural effusion.",7,3,1,processed,1,,"基本检查: 满足基本要求, 模型评估: true"
+19831538,54636422,files/p19/p19831538/s54636422.txt,"There is new airspace opacification in the right lung base with associated air
+ bronchograms concerning for right lower lobe pneumonia.  Small bilateral
+ pleural effusions are present on the right greater than the left.  Scarring of
+ the right lung apex is unchanged.  No pneumothorax is present.  The pulmonary
+ vasculature is not engorged.  The cardiac silhouette is top normal in size but
+ stable.  The mediastinal and hilar contours are unchanged with prominence and
+ tortuosity of the thoracic aorta, which is unchanged.  The trachea is slightly
+ deviated from midline most likely related to patient head positioning.","Right lower lobe pneumonia and bilateral pleural effusions on the right
+ greater than the left.",8,1,2,processed,1,,"基本检查: 满足基本要求, 模型评估: true"
+11056642,50453240,files/p11/p11056642/s50453240.txt,"Single AP portable chest radiograph demonstrates prominent bilateral
+ interstitial markings. There is blunting of bilateral costophrenic angles
+ consistent with likely small pleural effusions. The within the right midlung
+ zone, there is a rounded opacity which corresponds to mass seen on same day
+ CT. The mediastinal contour or appears to be wide, consistent with adenopathy,
+ also demonstrated on same day CT.  Prominent vasculature likely reflects a
+ component of vascular congestion and mild pulmonary edema.","1.  Right lung focal opacity consistent with mass better delineated on same
+ day CT.
+ 2.  Prominent interstitial markings and prominent vasculature thought to
+ reflect mild pulmonary edema.
+ 3.  Widened mediastinum consistent with adenopathy also demonstrated on same
+ day CT.",5,6,1,processed,1,,"基本检查: 满足基本要求, 模型评估: true"
+19644010,52701236,files/p19/p19644010/s52701236.txt,"The cardiac silhouette is moderately enlarged with tortuosity of
+ the thoracic aorta with dense aortic calcifications.  The hilar contours are
+ unremarkable.  There is a right lung base atelectasis with more dense
+ consolidation in the right mid lung field with layering posterior pleural
+ effusion.  There is no pneumothorax.  Calcified pleural plaques are noted in
+ the lung apices.","Consolidation of the right mid lung field with associated
+ right-sided pleural effusion as well as biapical calcified pleural plaques
+ which are better described on same-day CT examination.  This could represent
+ infection or mass.",5,2,1,processed,1,,"基本检查: 满足基本要求, 模型评估: true"
+14677859,56202489,files/p14/p14677859/s56202489.txt,"The lungs are hyperexpanded. There are diffuse interstitial
+ abnormalities and mild-to-moderate cardiomegaly likely reflecting some
+ component of interstitial pulmonary edema. Opacities at the lung bases likely
+ reflect a combination of pleural effusion and atelectasis.    The aortic arch
+ is calcified.  There is no pneumothorax.","1.  Borderline interstitial pulmonary edema with moderate cardiomegaly.
+ 2.  Small right pleural effusion. 
+ 3.  Hyperexpanded lungs likely reflecting COPD.",5,6,1,processed,1,,"基本检查: 满足基本要求, 模型评估: true"
+15469245,51768244,files/p15/p15469245/s51768244.txt,"A poorly defined 2.5 cm diameter nodule is present anteriorly in
+ the right upper lobe, accompanied by possible right paratracheal and right
+ hilar lymph node enlargement.  A nonspecific opacity is also identified in the
+ right infrahilar region, difficult to fully characterize due to summation of
+ structures in this region.  Heart size is normal.  Aorta is diffusely
+ calcified.  Lungs are hyperexpanded.  No pleural effusion.  Bones are
+ diffusely demineralized.","Right upper lobe lung nodule with possible adjacent mediastinal
+ and hilar lymphadenopathy.  Given the clinical history of suspicious bone
+ lesion, observed findings are most concerning for primary lung cancer. 
+ Further evaluation with dedicated chest CT is recommended.  
+ 
+ Dr. ___ was telephoned with this finding and recommendation at 9 a.m. on
+ ___ at the time of discovery.  This information has also been
+ entered into the radiology communications dashboard on ___.",8,8,3,processed,1,,"基本检查: 满足基本要求, 模型评估: true"
+18174990,54740103,files/p18/p18174990/s54740103.txt,"There are bilateral interstitial opacities with a basilar
+ predominance and pulmonary vascular engorgement.  Near-complete opacification
+ at the left lung base silhouetting the left hemidiaphragm and left heart
+ border compatible with focal consolidation.  A small left pleural effusion
+ cannot be excluded.  No pneumothorax is detected.  The cardiac silhouette is
+ incompletely evaluated but likely remains mildly enlarged.  The mediastinal
+ contours are prominent but stable with mild tortuosity of the aorta and
+ calcification of the aortic knob.","1.  Left basilar pneumonia.
+ 2.  Possible small left pleural effusion.
+ 3.  Mild interstitial pulmonary edema.",6,6,1,processed,1,,"基本检查: 满足基本要求, 模型评估: true"
+18535992,59685788,files/p18/p18535992/s59685788.txt,"The lungs are mildly hyperexpanded on a background of probable COPD.  Heart is
+ top normal in size.  Bibasilar opacities and reticular interstitial pattern
+ noted.  Small bilateral pleural effusions.","Bibasilar opacities mid and lower lungs may reflect pulmonary edema and
+ intersititial lung disease.  Evidence of COPD.",4,2,1,processed,1,,"基本检查: 满足基本要求, 模型评估: true"

@@ -1,0 +1,29 @@
+{
+  "subject_id": "19831538",
+  "study_id": "54636422",
+  "report_path": "files/p19/p19831538/s54636422.txt",
+  "findings": "There is new airspace opacification in the right lung base with associated air\n bronchograms concerning for right lower lobe pneumonia.  Small bilateral\n pleural effusions are present on the right greater than the left.  Scarring of\n the right lung apex is unchanged.  No pneumothorax is present.  The pulmonary\n vasculature is not engorged.  The cardiac silhouette is top normal in size but\n stable.  The mediastinal and hilar contours are unchanged with prominence and\n tortuosity of the thoracic aorta, which is unchanged.  The trachea is slightly\n deviated from midline most likely related to patient head positioning.",
+  "impression": "Right lower lobe pneumonia and bilateral pleural effusions on the right\n greater than the left.",
+  "full_report_text": " WET READ: ___ ___ ___ 9:02 PM\n  Right lower lobe pneumonia and bilateral pleural effusions on the right\n  greater than the left.  \n ______________________________________________________________________________\n                                 FINAL REPORT\n HISTORY:  Cough, here to evaluate for fluid overload prior to blood\n transfusion.  \n \n COMPARISON:  Chest radiographs dated ___. \n \n Technique:  Upright AP and lateral radiographs of the chest.  \n \n FINDINGS:\n \n There is new airspace opacification in the right lung base with associated air\n bronchograms concerning for right lower lobe pneumonia.  Small bilateral\n pleural effusions are present on the right greater than the left.  Scarring of\n the right lung apex is unchanged.  No pneumothorax is present.  The pulmonary\n vasculature is not engorged.  The cardiac silhouette is top normal in size but\n stable.  The mediastinal and hilar contours are unchanged with prominence and\n tortuosity of the thoracic aorta, which is unchanged.  The trachea is slightly\n deviated from midline most likely related to patient head positioning.  \n \n IMPRESSION:\n \n Right lower lobe pneumonia and bilateral pleural effusions on the right\n greater than the left.\n",
+  "status": "processed",
+  "findings_sentences": [
+    "There is new airspace opacification in the right lung base with associated air\n bronchograms concerning for right lower lobe pneumonia.",
+    "Small bilateral\n pleural effusions are present on the right greater than the left.",
+    "Scarring of\n the right lung apex is unchanged.",
+    "No pneumothorax is present.",
+    "The pulmonary\n vasculature is not engorged.",
+    "The cardiac silhouette is top normal in size but\n stable.",
+    "The mediastinal and hilar contours are unchanged with prominence and\n tortuosity of the thoracic aorta, which is unchanged.",
+    "The trachea is slightly\n deviated from midline most likely related to patient head positioning."
+  ],
+  "impression_sentences": [
+    "Right lower lobe pneumonia and bilateral pleural effusions on the right\n greater than the left."
+  ],
+  "image_files": [
+    "image_1.jpg",
+    "image_2.jpg"
+  ],
+  "flag": 1.0,
+  "Unnamed: 3": NaN,
+  "filter_reason": "基本检查: 满足基本要求, 模型评估: true"
+}

@@ -1,0 +1,37 @@
+{
+  "subject_id": "11600263",
+  "study_id": "51397702",
+  "report_path": "files/p11/p11600263/s51397702.txt",
+  "findings": "There is an approximately 4-cm irregular central left hilar mass\n which is highly concerning for primary lung malignancy.  It is associated with\n post-obstructive collapse of the lingula and partial collapse of the left\n upper lobe.  Within the aerated portion of the left upper lung, there is a\n combined alveolar and interstitial pattern suggesting possible re-expansion\n edema or a post-obstructive pneumonia.   Underlying component of lymphangitic\n spread is difficult to exclude. There is a small quantity of residual pleural\n effusion seen on the left side.  The cardiomediastinal silhouette is shifted\n to the left.",
+  "impression": "1.  Large central left hilar mass concerning for primary lung malignancy with\n postobstructive atelectasis.\n 2.  Re-expansion edema vs. post-obstructive pneumonia in the left upper lung\n region.\n 3.  Small residual left-sided effusion.\n 4.  No pneumothorax.\n \n These findings were Dr. ___ at 3:05PM via phone by ___.",
+  "full_report_text": "                                 FINAL REPORT\n INDICATION:  ___-year-old female with recent left pleural effusion.  Study is\n to assess for lung re-expansion.\n \n COMPARISON:  None available.\n \n TECHNIQUE:  PA and lateral chest radiograph.\n \n FINDINGS:  There is an approximately 4-cm irregular central left hilar mass\n which is highly concerning for primary lung malignancy.  It is associated with\n post-obstructive collapse of the lingula and partial collapse of the left\n upper lobe.  Within the aerated portion of the left upper lung, there is a\n combined alveolar and interstitial pattern suggesting possible re-expansion\n edema or a post-obstructive pneumonia.   Underlying component of lymphangitic\n spread is difficult to exclude. There is a small quantity of residual pleural\n effusion seen on the left side.  The cardiomediastinal silhouette is shifted\n to the left.\n \n IMPRESSION:\n 1.  Large central left hilar mass concerning for primary lung malignancy with\n postobstructive atelectasis.\n 2.  Re-expansion edema vs. post-obstructive pneumonia in the left upper lung\n region.\n 3.  Small residual left-sided effusion.\n 4.  No pneumothorax.\n \n These findings were Dr. ___ at 3:05PM via phone by ___.\n",
+  "status": "processed",
+  "findings_sentences": [
+    "There is an approximately 4-cm irregular central left hilar mass\n which is highly concerning for primary lung malignancy.",
+    "It is associated with\n post-obstructive collapse of the lingula and partial collapse of the left\n upper lobe.",
+    "Within the aerated portion of the left upper lung, there is a\n combined alveolar and interstitial pattern suggesting possible re-expansion\n edema or a post-obstructive pneumonia.",
+    "Underlying component of lymphangitic\n spread is difficult to exclude.",
+    "There is a small quantity of residual pleural\n effusion seen on the left side.",
+    "The cardiomediastinal silhouette is shifted\n to the left."
+  ],
+  "impression_sentences": [
+    "1.",
+    "Large central left hilar mass concerning for primary lung malignancy with\n postobstructive atelectasis.",
+    "2.",
+    "Re-expansion edema vs.",
+    "post-obstructive pneumonia in the left upper lung\n region.",
+    "3.",
+    "Small residual left-sided effusion.",
+    "4.",
+    "No pneumothorax.",
+    "These findings were Dr.",
+    "___ at 3:05PM via phone by ___."
+  ],
+  "image_files": [
+    "image_1.jpg",
+    "image_2.jpg"
+  ],
+  "flag": 1.0,
+  "Unnamed: 3": NaN,
+  "filter_reason": "基本检查: 满足基本要求, 模型评估: true"
+}

@@ -398,78 +398,57 @@ def create_findings_impression_containers(findings, impression, width=600, heigh
     """
     return html_content
 
+def get_available_folders():
+    """获取data/high_quality_reports_100_with_images目录下的所有文件夹"""
+    data_dir = os.path.join(os.path.dirname(__file__), "data", "high_quality_reports_100_with_images")
+    if not os.path.exists(data_dir):
+        return []
+    
+    folders = []
+    for item in os.listdir(data_dir):
+        item_path = os.path.join(data_dir, item)
+        if os.path.isdir(item_path) and not item.startswith('.'):
+            folders.append(item)
+    
+    return sorted(folders)
+
 def main():
     st.markdown('<div class="main-header">报告评估系统</div>', unsafe_allow_html=True)
     # 用户名输入
     st.sidebar.header("👤 用户信息")
     username = st.sidebar.text_input("用户名:", placeholder="请输入您的用户名")
+    
     # 侧边栏 - 文件夹选择
-    st.sidebar.header("📁 上传数据文件夹")
+    st.sidebar.header("📁 选择病例文件夹")
     
-    # 显示需要的文件类型
-    with st.sidebar.expander("📋 文件夹中需要的文件", expanded=False):
-        st.markdown("""
-        **必需文件:**
-        - `image_{n}.jpg` - 医学图像 (n为数字，系统会选择n最小的图像)
-        - `report.json` - 原始报告
-        
-        **模型预测文件 (至少一个):**
-        - `{model_name}_predict.json` 文件
-        """)
+    # 获取可用的文件夹列表
+    available_folders = get_available_folders()
     
-    # 文件夹路径输入
-    folder_path = st.sidebar.text_input(
-        "病例文件夹路径:",
-        placeholder="请输入病例文件夹的完整路径，例如: /path/to/case/folder",
-        help="请输入包含图像、报告和模型预测文件的文件夹路径"
+    if not available_folders:
+        st.error("❌ 未找到任何病例文件夹，请检查data/high_quality_reports_100_with_images目录")
+        return
+    
+    # 文件夹选择下拉列表
+    selected_folder = st.sidebar.selectbox(
+        "选择病例:",
+        available_folders,
+        help="从可用的病例文件夹中选择一个进行评估"
     )
     
-    # 保存路径选择
-    st.sidebar.header("💾 保存设置")
+    # 构建完整的文件夹路径
+    data_dir = os.path.join(os.path.dirname(__file__), "data", "high_quality_reports_100_with_images")
+    folder_path = os.path.join(data_dir, selected_folder)
     
-    # 保存方式选择 - 仅保留用户端保存
-    save_mode = "仅保存到用户端"
-    st.sidebar.info("📁 评分文件将保存到用户端")
+    # 显示保存信息
+    st.sidebar.info("📁 评分文件将直接保存到对应的病例文件夹中")
     
-    # 用户端保存设置
-    st.sidebar.subheader("📥 保存设置")
-    
-    # 手动选择保存路径
-    col1, col2 = st.sidebar.columns([3, 1])
-    
-    with col1:
-        # 获取从弹框选择的路径
-        default_path = ""
-        if hasattr(st.session_state, 'selected_user_save_path'):
-            default_path = st.session_state.selected_user_save_path
-        
-        user_save_path = st.text_input(
-            "保存路径:", 
-            value=default_path,
-            placeholder="请输入保存路径，例如: /path/to/save/folder",
-            help="请输入完整的保存路径，系统会自动创建目录"
-        )
-        
-        # 添加路径验证和提示
-        if user_save_path and user_save_path.strip():
-            if not os.path.exists(user_save_path):
-                st.sidebar.info("📁 路径不存在，保存时会自动创建")
-            else:
-                st.sidebar.success("✅ 路径存在，可以直接保存")
-                
-            # 显示路径信息
-            st.sidebar.write(f"**当前保存路径:** {user_save_path}")
-            
-        else:
-            st.sidebar.warning("⚠️ 请输入保存路径")
-    
-    # 处理输入的文件夹路径
-    if folder_path and folder_path.strip():
+    # 处理选择的文件夹
+    if selected_folder:
         # 验证路径是否存在
         if not os.path.exists(folder_path):
             st.error("❌ 指定的路径不存在，请检查路径是否正确")
         elif not os.path.isdir(folder_path):
-            st.error("❌ 指定的路径不是文件夹，请输入文件夹路径")
+            st.error("❌ 指定的路径不是文件夹")
         else:
             # 检查文件夹中是否包含必要的文件
             required_files = ['report.json']
@@ -486,10 +465,6 @@ def main():
                 # 路径验证通过，加载数据
                 try:
                     data = load_folder_data(folder_path)
-                    
-                    # 设置默认保存路径（如果需要的话）
-                    if not user_save_path or not user_save_path.strip():
-                        user_save_path = os.path.basename(folder_path)  # 使用文件夹名作为默认路径
                     
                     # 侧边栏 - 模型选择
                     st.sidebar.header("🤖 模型选择")
@@ -512,15 +487,15 @@ def main():
                             # 提取选中的模型名称
                             selected_model = selected_option.split(" ", 1)[1] if " " in selected_option else selected_option
                         
-                        # 主界面显示
-                        display_main_interface(data, selected_model, folder_path, username, user_save_path)
+                        # 主界面显示 - 直接保存到对应文件夹
+                        display_main_interface(data, selected_model, folder_path, username, folder_path)
                     else:
                         st.error("未找到任何模型预测文件 (*_predict.json)")
                         
                 except Exception as e:
                     st.error(f"❌ 加载数据时发生错误: {e}")
     else:
-        st.info("💡 请输入病例文件夹路径开始评估")
+        st.info("💡 请选择一个病例文件夹开始评估")
 
 def display_main_interface(data, selected_model, server_dir, username, usr_dir):
     """显示主界面"""
@@ -725,28 +700,19 @@ def display_main_interface(data, selected_model, server_dir, username, usr_dir):
                     "folder_name": folder_name
                 }
                 
-                # 双路径保存逻辑
-                saved_files = []
-                saved_file_path1 = None
-                
-                # 路径1：用户选择的保存路径（usr_dir）
-                if usr_dir and usr_dir.strip():
-                    # 验证路径格式
-                    try:
-                        os.makedirs(usr_dir, exist_ok=True)
-                        saved_file_path1 = save_review(server_dir, selected_model, username, review_data, usr_dir)
-                        st.success(f"📁 用户端路径已保存: {usr_dir}")
-                        saved_files.append(("用户选择路径", saved_file_path1))
-                        
-                        # 更新数据以反映新的review状态
-                        data['reviews'][selected_model] = review_data
-                        
-                        # 显示成功消息
-                        st.success(f"✅ 模型 {selected_model} 已处理完成！")
-                        
-                        
-                    except Exception as e:
-                        st.error(f"❌ 用户路径保存失败: {e}")
+                # 直接保存到对应文件夹
+                try:
+                    saved_file_path = save_review(server_dir, selected_model, username, review_data, server_dir)
+                    st.success(f"✅ 评分已保存到: {os.path.basename(saved_file_path)}")
+                    
+                    # 更新数据以反映新的review状态
+                    data['reviews'][selected_model] = review_data
+                    
+                    # 显示成功消息
+                    st.success(f"✅ 模型 {selected_model} 已处理完成！")
+                    
+                except Exception as e:
+                    st.error(f"❌ 保存失败: {e}")
                 
             except ValueError as e:
                 st.error(f"❌ 保存失败: {e}")
