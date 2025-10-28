@@ -398,19 +398,79 @@ def create_findings_impression_containers(findings, impression, width=600, heigh
     """
     return html_content
 
-def get_available_folders():
-    """获取data/high_quality_reports_100_with_images目录下的所有文件夹"""
-    data_dir = os.path.join(os.path.dirname(__file__), "data", "high_quality_reports_100_with_images")
-    if not os.path.exists(data_dir):
-        return []
+def create_data_from_uploaded_files(uploaded_files):
+    """从上传的文件创建数据"""
+    data = {}
     
-    folders = []
-    for item in os.listdir(data_dir):
-        item_path = os.path.join(data_dir, item)
-        if os.path.isdir(item_path) and not item.startswith('.'):
-            folders.append(item)
+    # 读取原始报告
+    report_data = None
+    for file in uploaded_files:
+        if file.name.endswith('report.json'):
+            try:
+                content = file.getvalue().decode('utf-8')
+                report_data = json.loads(content)
+                data['report'] = report_data
+                break
+            except Exception as e:
+                st.error(f"读取report.json失败: {e}")
     
-    return sorted(folders)
+    # 从report.json中提取subject_id和study_id
+    if report_data:
+        subject_id = report_data.get('subject_id', 'unknown')
+        study_id = report_data.get('study_id', 'unknown')
+        data['case_name'] = f"subject_{subject_id}_study_{study_id}"
+    else:
+        data['case_name'] = "unknown_case"
+    
+    # 读取图像文件 - 选择image_{n}.jpg中n最小的文件
+    image_files = [f for f in uploaded_files if f.name.startswith('image_') and f.name.endswith(('.jpg', '.png'))]
+    if image_files:
+        # 提取文件名中的数字并排序，选择n最小的
+        def extract_number(filename):
+            import re
+            match = re.search(r'image_(\d+)\.', filename)
+            return int(match.group(1)) if match else float('inf')
+        
+        image_files.sort(key=lambda f: extract_number(f.name))
+        # 将图像文件保存到临时位置供显示
+        import tempfile
+        temp_image_path = tempfile.NamedTemporaryFile(delete=False, suffix='.jpg')
+        temp_image_path.write(image_files[0].getvalue())
+        temp_image_path.close()
+        data['image'] = temp_image_path.name
+    
+    # 读取所有模型预测文件
+    data['models'] = {}
+    
+    for file in uploaded_files:
+        if file.name.endswith('_predict.json'):
+            model_name = file.name.replace('_predict.json', '')
+            try:
+                content = file.getvalue().decode('utf-8')
+                data['models'][model_name] = json.loads(content)
+            except Exception as e:
+                st.error(f"读取{file.name}失败: {e}")
+    
+    # 检查是否已有review文件（支持新的命名规则）
+    data['reviews'] = {}
+    data['review_files'] = {}
+    
+    for model_name in data['models'].keys():
+        # 查找所有相关的review文件
+        review_files = [f for f in uploaded_files if f.name.startswith(f"{model_name}_review")]
+        data['review_files'][model_name] = review_files
+        
+        # 如果有review文件，加载最新的一个
+        if review_files:
+            # 按修改时间排序，取最新的
+            latest_review = max(review_files, key=lambda f: f.name)
+            try:
+                content = latest_review.getvalue().decode('utf-8')
+                data['reviews'][model_name] = json.loads(content)
+            except Exception as e:
+                st.error(f"读取review文件失败: {e}")
+    
+    return data
 
 def main():
     st.markdown('<div class="main-header">报告评估系统</div>', unsafe_allow_html=True)
@@ -419,89 +479,126 @@ def main():
     username = st.sidebar.text_input("用户名:", placeholder="请输入您的用户名")
     
     # 侧边栏 - 文件夹选择
-    st.sidebar.header("📁 选择病例文件夹")
+    st.sidebar.header("📁 上传数据文件夹")
     
-    # 获取可用的文件夹列表
-    available_folders = get_available_folders()
+    # 显示需要的文件类型
+    with st.sidebar.expander("📋 文件夹中需要的文件", expanded=False):
+        st.markdown("""
+        **必需文件:**
+        - `image_{n}.jpg` - 医学图像 (n为数字，系统会选择n最小的图像)
+        - `report.json` - 原始报告
+        
+        **模型预测文件 (至少一个):**
+        - `{model_name}_predict.json` 文件
+        """)
     
-    if not available_folders:
-        st.error("❌ 未找到任何病例文件夹，请检查data/high_quality_reports_100_with_images目录")
-        return
-    
-    # 文件夹选择下拉列表
-    selected_folder = st.sidebar.selectbox(
-        "选择病例:",
-        available_folders,
-        help="从可用的病例文件夹中选择一个进行评估"
+    # 文件上传功能 - 支持多种格式
+    uploaded_files = st.sidebar.file_uploader(
+        "上传病例文件夹文件",
+        type=['jpg', 'jpeg', 'png', 'json'],
+        accept_multiple_files=True,
+        help="请选择包含图像和报告的文件夹中的所有文件"
     )
     
-    # 构建完整的文件夹路径
-    data_dir = os.path.join(os.path.dirname(__file__), "data", "high_quality_reports_100_with_images")
-    folder_path = os.path.join(data_dir, selected_folder)
-    
-    # 显示保存信息
-    st.sidebar.info("📁 评分文件将直接保存到对应的病例文件夹中")
-    
-    # 处理选择的文件夹
-    if selected_folder:
-        # 验证路径是否存在
-        if not os.path.exists(folder_path):
-            st.error("❌ 指定的路径不存在，请检查路径是否正确")
-        elif not os.path.isdir(folder_path):
-            st.error("❌ 指定的路径不是文件夹")
-        else:
-            # 检查文件夹中是否包含必要的文件
-            required_files = ['report.json']
-            image_files = glob.glob(os.path.join(folder_path, "image_*.jpg")) + glob.glob(os.path.join(folder_path, "image_*.png"))
-            predict_files = glob.glob(os.path.join(folder_path, "*_predict.json"))
+    # 处理上传的文件
+    if uploaded_files:
+        # 检查是否包含subject文件夹结构的文件
+        has_subject_files = any(
+            file.name.startswith("subject_") or 
+            "subject_" in file.name or
+            file.name.endswith(("_predict.json", "report.json", "image_1.jpg"))
+            for file in uploaded_files
+        )
+        
+        if has_subject_files:
+            # 从上传的文件中提取原始文件夹名称
+            original_folder_name = None
             
-            if not image_files:
-                st.error("❌ 文件夹中未找到图像文件 (image_*.jpg 或 image_*.png)")
-            elif not any(os.path.exists(os.path.join(folder_path, file)) for file in required_files):
-                st.error("❌ 文件夹中未找到 report.json 文件")
-            elif not predict_files:
-                st.error("❌ 文件夹中未找到任何模型预测文件 (*_predict.json)")
-            else:
-                # 路径验证通过，加载数据
-                try:
-                    data = load_folder_data(folder_path)
-                    
-                    # 侧边栏 - 模型选择
-                    st.sidebar.header("🤖 模型选择")
-                    
-                    if data.get('models'):
-                        # 创建可折叠的模型选择器
-                        with st.sidebar.expander("选择模型", expanded=True):
-                            # 创建模型列表，包含状态信息
-                            model_options = []
-                            for model_name in data['models'].keys():
-                                status = "✅" if model_name in data.get('reviews', {}) else "❌"
-                                model_options.append(f"{status} {model_name}")
-                            
-                            selected_option = st.radio(
-                                "可用模型:",
-                                model_options,
-                                key="model_selection"
-                            )
-                            
-                            # 提取选中的模型名称
-                            selected_model = selected_option.split(" ", 1)[1] if " " in selected_option else selected_option
-                        
-                        # 主界面显示 - 直接保存到对应文件夹
-                        display_main_interface(data, selected_model, folder_path, username, folder_path)
+            # 方法1: 查找包含subject的文件名
+            for file in uploaded_files:
+                if "subject_" in file.name:
+                    # 提取文件夹名称（假设文件名格式为 subject_xxx_study_xxx/xxx.jpg）
+                    parts = file.name.split('/')
+                    if len(parts) > 1:
+                        original_folder_name = parts[0]
+                        break
                     else:
-                        st.error("未找到任何模型预测文件 (*_predict.json)")
-                        
-                except Exception as e:
-                    st.error(f"❌ 加载数据时发生错误: {e}")
+                        # 如果文件名直接包含subject_，使用文件名作为文件夹名
+                        original_folder_name = file.name.split('.')[0]
+                        break
+            
+            # 方法2: 如果没有找到subject文件，查找其他可能的文件夹结构
+            if not original_folder_name:
+                for file in uploaded_files:
+                    if '/' in file.name:
+                        folder_part = file.name.split('/')[0]
+                        # 检查是否是合理的文件夹名（不是临时文件名）
+                        if not folder_part.startswith('tmp') and len(folder_part) > 3:
+                            original_folder_name = folder_part
+                            break
+            
+            # 方法3: 如果还是没有找到，使用第一个文件的目录名
+            if not original_folder_name:
+                first_file = uploaded_files[0]
+                if '/' in first_file.name:
+                    original_folder_name = first_file.name.split('/')[0]
+                else:
+                    # 使用第一个文件的名称（去掉扩展名）作为文件夹名
+                    original_folder_name = first_file.name.split('.')[0]
+            
+            # 确保文件夹名称不为空
+            if not original_folder_name or original_folder_name == "":
+                original_folder_name = "uploaded_case"
+            
+            # 直接从上传的文件创建数据
+            data = create_data_from_uploaded_files(uploaded_files)
+            
+            # 使用从report.json中提取的病例名称
+            case_name = data.get('case_name', original_folder_name)
+            
+            # 调试信息：显示提取的文件夹名称和病例名称
+            st.sidebar.info(f"📁 检测到文件夹: {original_folder_name}")
+            st.sidebar.info(f"🏥 病例名称: {case_name}")
+            st.sidebar.info(f"📄 上传文件数量: {len(uploaded_files)}")
+            if uploaded_files:
+                st.sidebar.info(f"📄 第一个文件: {uploaded_files[0].name}")
+            
+            # 侧边栏 - 模型选择
+            st.sidebar.header("🤖 模型选择")
+            
+            if data.get('models'):
+                # 创建可折叠的模型选择器
+                with st.sidebar.expander("选择模型", expanded=True):
+                    # 创建模型列表，包含状态信息
+                    model_options = []
+                    for model_name in data['models'].keys():
+                        status = "✅" if model_name in data.get('reviews', {}) else "❌"
+                        model_options.append(f"{status} {model_name}")
+                    
+                    selected_option = st.radio(
+                        "可用模型:",
+                        model_options,
+                        key="model_selection"
+                    )
+                    
+                    # 提取选中的模型名称
+                    selected_model = selected_option.split(" ", 1)[1] if " " in selected_option else selected_option
+                
+                # 主界面显示
+                display_main_interface(data, selected_model, case_name, username, case_name)
+            else:
+                st.error("未找到任何模型预测文件 (*_predict.json)")
+        else:
+            st.error("上传的文件不包含有效的病例数据，请确保包含图像、报告和模型预测文件")
     else:
-        st.info("💡 请选择一个病例文件夹开始评估")
+        st.info("💡 请上传病例文件夹文件开始评估")
 
-def display_main_interface(data, selected_model, server_dir, username, usr_dir):
+def display_main_interface(data, selected_model, case_name, username, usr_dir):
     """显示主界面"""
     
     # 顶部信息显示 - 病例名称和状态在同一行
-    folder_name = os.path.basename(server_dir)
+    # 使用传递的病例名称
+    folder_name = case_name
     
     # 检查处理状态
     if selected_model in data.get('reviews', {}):
@@ -689,35 +786,41 @@ def display_main_interface(data, selected_model, server_dir, username, usr_dir):
             """)
 
         
-        # 保存按钮
-        if st.button("💾 保存评分", key=f"save_{selected_model}", type="primary"):
-            try:
-                # 准备保存的数据
-                review_data = {
-                    "model_name": selected_model,
-                    "peer_score": peer_score,
-                    "timestamp": str(Path().cwd()),
-                    "folder_name": folder_name
-                }
-                
-                # 直接保存到对应文件夹
-                try:
-                    saved_file_path = save_review(server_dir, selected_model, username, review_data, server_dir)
-                    st.success(f"✅ 评分已保存到: {os.path.basename(saved_file_path)}")
-                    
-                    # 更新数据以反映新的review状态
-                    data['reviews'][selected_model] = review_data
-                    
-                    # 显示成功消息
-                    st.success(f"✅ 模型 {selected_model} 已处理完成！")
-                    
-                except Exception as e:
-                    st.error(f"❌ 保存失败: {e}")
-                
-            except ValueError as e:
-                st.error(f"❌ 保存失败: {e}")
-            except Exception as e:
-                st.error(f"❌ 保存失败: {e}")
+        # 准备保存的数据
+        review_data = {
+            "model_name": selected_model,
+            "peer_score": peer_score,
+            "timestamp": str(Path().cwd()),
+            "folder_name": folder_name
+        }
+        
+        # 将数据转换为JSON字符串
+        import json
+        json_data = json.dumps(review_data, ensure_ascii=False, indent=2)
+        
+        # 生成文件名
+        # 从当前数据中查找该用户该模型的最大review_number
+        review_number = 0
+        
+        # 查找该用户该模型的所有review文件
+        if selected_model in data.get('reviews', {}):
+            current_review = data['reviews'][selected_model]
+            # 检查是否是同一个用户的review
+            if current_review.get('username') == username and 'review_number' in current_review:
+                review_number = current_review['review_number'] + 1
+        
+        # 如果没有找到该用户的review文件，从0开始
+        filename = f"{selected_model}_review_{username}_{review_number}.json"
+        
+        # 下载按钮
+        st.download_button(
+            label="💾 下载评分结果",
+            data=json_data,
+            file_name=filename,
+            mime="application/json",
+            key=f"download_{selected_model}",
+            type="primary"
+        )
 
 if __name__ == "__main__":
     main()
