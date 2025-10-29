@@ -351,7 +351,7 @@ def create_findings_impression_containers(findings, impression, width=600, heigh
             background-color: #f8f9fa;
             overflow-y: auto;
             font-family: Arial, sans-serif;
-            font-size: 12px;
+            font-size: 14px;
             line-height: 1.4;
             white-space: pre-wrap;
             word-wrap: break-word;
@@ -369,7 +369,7 @@ def create_findings_impression_containers(findings, impression, width=600, heigh
             background-color: #f8f9fa;
             overflow-y: auto;
             font-family: Arial, sans-serif;
-            font-size: 12px;
+            font-size: 14px;
             line-height: 1.4;
             white-space: pre-wrap;
             word-wrap: break-word;
@@ -557,11 +557,7 @@ def main():
             case_name = data.get('case_name', original_folder_name)
             
             # 调试信息：显示提取的文件夹名称和病例名称
-            st.sidebar.info(f"📁 检测到文件夹: {original_folder_name}")
-            st.sidebar.info(f"🏥 病例名称: {case_name}")
             st.sidebar.info(f"📄 上传文件数量: {len(uploaded_files)}")
-            if uploaded_files:
-                st.sidebar.info(f"📄 第一个文件: {uploaded_files[0].name}")
             
             # 侧边栏 - 模型选择
             st.sidebar.header("🤖 模型选择")
@@ -632,9 +628,13 @@ def display_main_interface(data, selected_model, case_name, username, usr_dir):
         if 'report' in data:
             st.markdown('<div class="section-title">📋 原始报告</div>', unsafe_allow_html=True)
             
-            # 使用Streamlit原生方式显示findings和impression
-            findings = data['report'].get('findings', '')
-            impression = data['report'].get('impression', '')
+            # 直接使用字段内容，将markdown和换行符显示为纯文本
+            findings_raw = data['report'].get('findings', '')
+            impression_raw = data['report'].get('impression', '')
+            
+            # 将文本转换为纯文本显示（保留所有特殊字符）
+            findings = findings_raw.replace('\n', '\\n').replace('\t', '\\t').replace('\r', '\\r')
+            impression = impression_raw.replace('\n', '\\n').replace('\t', '\\t').replace('\r', '\\r')
             
             # Findings部分
             st.markdown("**Findings:**")
@@ -648,7 +648,7 @@ def display_main_interface(data, selected_model, case_name, username, usr_dir):
                     padding: 0.5rem;
                     background-color: #f8f9fa;
                     overflow-y: auto;
-                    font-family: Arial, sans-serif;
+                    font-family: 'Courier New', monospace;
                     font-size: 14px;
                     line-height: 1.4;
                     white-space: pre-wrap;
@@ -668,7 +668,7 @@ def display_main_interface(data, selected_model, case_name, username, usr_dir):
                     padding: 0.5rem;
                     background-color: #f8f9fa;
                     overflow-y: auto;
-                    font-family: Arial, sans-serif;
+                    font-family: 'Courier New', monospace;
                     font-size: 14px;
                     line-height: 1.4;
                     white-space: pre-wrap;
@@ -682,9 +682,13 @@ def display_main_interface(data, selected_model, case_name, username, usr_dir):
             
             st.markdown('<div class="section-title">🤖 模型预测报告</div>', unsafe_allow_html=True)
             
-            # 使用Streamlit原生方式显示模型预测的findings和impression
-            model_findings = model_data.get('findings', '')
-            model_impression = model_data.get('impression', '')
+            # 直接使用字段内容，将markdown和换行符显示为纯文本
+            model_findings_raw = model_data.get('findings', '')
+            model_impression_raw = model_data.get('impression', '')
+            
+            # 将文本转换为纯文本显示（保留所有特殊字符）
+            model_findings = model_findings_raw.replace('\n', '\\n').replace('\t', '\\t').replace('\r', '\\r')
+            model_impression = model_impression_raw.replace('\n', '\\n').replace('\t', '\\t').replace('\r', '\\r')
             
             # 模型Findings部分
             st.markdown("**Findings:**")
@@ -698,7 +702,7 @@ def display_main_interface(data, selected_model, case_name, username, usr_dir):
                     padding: 0.5rem;
                     background-color: #f8f9fa;
                     overflow-y: auto;
-                    font-family: Arial, sans-serif;
+                    font-family: 'Courier New', monospace;
                     font-size: 14px;
                     line-height: 1.4;
                     white-space: pre-wrap;
@@ -718,7 +722,7 @@ def display_main_interface(data, selected_model, case_name, username, usr_dir):
                     padding: 0.5rem;
                     background-color: #f8f9fa;
                     overflow-y: auto;
-                    font-family: Arial, sans-serif;
+                    font-family: 'Courier New', monospace;
                     font-size: 14px;
                     line-height: 1.4;
                     white-space: pre-wrap;
@@ -779,7 +783,7 @@ def display_main_interface(data, selected_model, case_name, username, usr_dir):
             
             **1分 - 存在重大错误**
             - 诊断错误
-            - 可能只有一些阴性描述是相同的
+            - 可能只有一些阴性描述是相同的实现分类精度测试
             
             **0分 - 不可接受**
             - 所描述的信息完全没有重叠
