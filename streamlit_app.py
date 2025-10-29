@@ -356,6 +356,8 @@ def main():
     # 初始化session state
     if 'current_data' not in st.session_state:
         st.session_state.current_data = None
+    if 'last_selected_case' not in st.session_state:
+        st.session_state.last_selected_case = None
     
     # 用户名输入
     st.sidebar.header("👤 用户信息")
@@ -385,17 +387,49 @@ def main():
     if case_dirs:
         # 列出可选病例
         case_labels = [p.name for p in case_dirs]
-        selected_label = st.sidebar.selectbox("选择病例:", case_labels, index=0)
-        selected_dir = data_root / selected_label
-        try:
-            data = load_folder_data(str(selected_dir))
-            st.session_state.current_data = data
-        except Exception as e:
-            st.error(f"❌ 加载数据时发生错误: {e}")
-            data = None
+        
+        # 添加刷新按钮
+        col1, col2 = st.sidebar.columns([3, 1])
+        with col1:
+            selected_label = st.selectbox("选择病例:", case_labels, index=0)
+        with col2:
+            if st.button("🔄", help="刷新数据"):
+                st.cache_data.clear()
+                if 'current_data' in st.session_state:
+                    del st.session_state.current_data
+                if 'last_selected_case' in st.session_state:
+                    del st.session_state.last_selected_case
+                st.rerun()
+        
+        # 检查是否切换了病例
+        current_selection = f"{selected_label}"
+        if (st.session_state.last_selected_case != current_selection or 
+            st.session_state.current_data is None):
+            
+            # 清除缓存数据
+            st.cache_data.clear()
+            
+            try:
+                selected_dir = data_root / selected_label
+                data = load_folder_data(str(selected_dir))
+                st.session_state.current_data = data
+                st.session_state.last_selected_case = current_selection
+                
+                # 显示成功消息
+                st.sidebar.success(f"✅ 已加载病例: {selected_label}")
+                
+            except Exception as e:
+                st.error(f"❌ 加载数据时发生错误: {e}")
+                data = None
+        else:
+            # 使用缓存的数据
+            data = st.session_state.current_data
     else:
         st.error("在内置 data/ 目录下未找到任何病例文件夹。")
         data = None
+
+    # 清除 load_folder_data 的缓存装饰器，或者修改为：
+    # @st.cache_data(ttl=60)  # 设置较短的缓存时间
 
     if data:
         # 侧边栏 - 模型选择
