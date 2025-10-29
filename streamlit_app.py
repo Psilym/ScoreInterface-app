@@ -498,63 +498,61 @@ def display_main_interface(data, selected_model, username):
     with col2:
         # 原始报告显示
         if 'report' in data:
-            st.markdown('<div class="section-title">📋 原始报告</div>', unsafe_allow_html=True)
-            
-            findings = data['report'].get('findings', '')
-            impression = data['report'].get('impression', '')
-            
-            # Findings部分
-            st.markdown("**Findings:**")
-            st.text_area(
-                "原始报告Findings",
-                value=findings,
-                height=140,
-                key="original_findings",
-                disabled=True,
-                label_visibility="collapsed"
-            )
-            
-            # Impression部分
-            st.markdown("**Impression:**")
-            st.text_area(
-                "原始报告Impression",
-                value=impression,
-                height=140,
-                key="original_impression",
-                disabled=True,
-                label_visibility="collapsed"
-            )
+            with st.expander("📋 原始报告", expanded=True):
+                findings = data['report'].get('findings', '')
+                impression = data['report'].get('impression', '')
+                
+                # Findings部分
+                st.markdown("**Findings:**")
+                st.text_area(
+                    "原始报告Findings",
+                    value=findings,
+                    height=140,
+                    key="original_findings",
+                    disabled=True,
+                    label_visibility="collapsed"
+                )
+                
+                # Impression部分
+                st.markdown("**Impression:**")
+                st.text_area(
+                    "原始报告Impression",
+                    value=impression,
+                    height=140,
+                    key="original_impression",
+                    disabled=True,
+                    label_visibility="collapsed"
+                )
         
         # 预测报告显示
         if selected_model in data.get('models', {}):
             model_data = data['models'][selected_model]
             
-            st.markdown('<div class="section-title">🤖 模型预测报告</div>', unsafe_allow_html=True)
-            
-            model_findings = model_data.get('findings', '')
-            model_impression = model_data.get('impression', '')
-            
-            # 模型Findings部分
-            st.markdown("**Findings:**")
-            st.text_area(
-                "模型预测Findings",
-                value=model_findings,
-                height=140,
-                key="model_findings",
-                disabled=True,
-                label_visibility="collapsed"
-            )
-            
-            # 模型Impression部分
-            st.markdown("**Impression:**")
-            st.text_area(
-                "模型预测Impression",
-                value=model_impression,
-                height=140,
-                key="model_impression",
-                disabled=True,
-                label_visibility="collapsed"
-            )
+            with st.expander("🤖 模型预测报告", expanded=True):
+                model_findings = model_data.get('findings', '')
+                model_impression = model_data.get('impression', '')
+                
+                # 模型Findings部分
+                st.markdown("**Findings:**")
+                st.text_area(
+                    "模型预测Findings",
+                    value=model_findings,
+                    height=140,
+                    key="model_findings",
+                    disabled=True,
+                    label_visibility="collapsed"
+                )
+                
+                # 模型Impression部分
+                st.markdown("**Impression:**")
+                st.text_area(
+                    "模型预测Impression",
+                    value=model_impression,
+                    height=140,
+                    key="model_impression",
+                    disabled=True,
+                    label_visibility="collapsed"
+                )
     
     with col3:
         # 用户名验证
