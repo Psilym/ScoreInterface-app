@@ -1,0 +1,9 @@
+{
+  "folder_name": "subject_15469245_study_51768244",
+  "image_file": "/home/midea/Work/CXRSentenceSplitter/data/reader_study/selected_cases100/high_quality_reports_100_with_images/subject_15469245_study_51768244/image_1.jpg",
+  "findings": "- 心脏增大，心胸比超过50%，提示心脏轮廓增大。\n- 双侧肺血管纹理明显增多，尤其是上叶。\n- 未见胸腔积液或气胸征象。\n- 双肺野未见局灶性实变或浸润。\n- 胸膈角清晰锐利。\n- 无明显纵隔移位或偏移。\n- 双侧膈肌轮廓和位置正常。\n- 未见明显骨骼异常或骨折。\n- 无急性心肺病理征象，如急性肺水肿或肺栓塞。",
+  "impression": "- 可能为慢性心脏肥大，伴有肺血管淤血。\n- 无急性肺部浸润或胸膜疾病。\n- 无急性心脏或肺部紧急情况的证据。\n---",
+  "full_response": "**检查结果：**\n- 心脏增大，心胸比超过50%，提示心脏轮廓增大。\n- 双侧肺血管纹理明显增多，尤其在上叶更为显著。\n- 未见胸腔积液或气胸征象。\n- 双肺野未见局灶性实变或浸润影。\n- 胸膈角清晰锐利，边界分明。\n- 无明显纵隔移位或偏移。\n- 双侧膈肌轮廓和位置正常。\n- 未见明显骨骼异常或骨折。\n- 无急性心肺病理征象，如急性肺水肿或肺栓塞。\n\n**印象：**\n- 可能为慢性心脏增大，伴有肺血管淤血。\n- 无急性肺部浸润或胸膜疾病。\n- 无急性心脏或肺部紧急情况的证据。",
+  "model": "QwenVL3",
+  "timestamp": "/home/midea/Work/CXRSentenceSplitter"
+}

@@ -1,0 +1,9 @@
+{
+  "folder_name": "subject_16842228_study_52003729",
+  "image_file": "/home/midea/Work/CXRSentenceSplitter/data/reader_study/selected_cases100/high_quality_reports_100_with_images/subject_16842228_study_52003729/image_1.jpg",
+  "findings": "双侧下肺为主的间质性阴影，可能代表肺水肿、感染或其他炎症过程。心脏大小正常。纵隔轮廓无异常。未见明显气胸。",
+  "impression": "双侧下肺为主的弥漫性间质性阴影。建议进一步进行侧位胸部X光片和/或CT扫描，以更好地明确病因。考虑肺水肿、肺炎或其他炎症性病变。",
+  "full_response": "**检查结果：** 双侧下肺为主的间质性阴影，可能代表肺水肿、感染或其他炎症过程。心脏大小正常。纵隔轮廓无异常。未见明显气胸。\n\n**印象：** 双侧下肺为主的间质性阴影。建议进一步进行侧位胸部X光片和/或CT扫描，以更好地明确病因。考虑肺水肿、肺炎或其他炎症过程。",
+  "model": "MedGemma",
+  "timestamp": "/home/midea/Work/CXRSentenceSplitter"
+}

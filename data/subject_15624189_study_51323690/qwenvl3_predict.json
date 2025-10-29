@@ -1,0 +1,9 @@
+{
+  "folder_name": "subject_15624189_study_51323690",
+  "image_file": "/home/midea/Work/CXRSentenceSplitter/data/reader_study/selected_cases100/high_quality_reports_100_with_images/subject_15624189_study_51323690/image_1.jpg",
+  "findings": "- 心脏增大，心胸比增加（>50%）。\n- 双侧肺血管充血，中央肺动脉明显。\n- 双侧弥漫性间质浸润，下肺区更为明显。\n- 双侧肋膈角变钝。\n- 右侧可见轻度胸腔积液。\n- 未见气胸或肋骨骨折的证据。\n- 无纵隔移位。\n- 双侧膈肌位置升高。\n- 未观察到显著的骨异常。",
+  "impression": "- 心力衰竭伴肺水肿。\n- 可能的慢性肺疾病伴间质性改变。\n- 右侧胸腔积液。\n- 考虑心源性肺水肿为主要病因。",
+  "full_response": "**检查结果：**\n- 心脏增大，心胸比增加（>50%）。\n- 双侧肺血管充血，中央肺动脉明显。\n- 双侧弥漫性间质浸润，下肺区更为明显。\n- 双侧肋膈角变钝。\n- 右侧可见轻度胸腔积液。\n- 未见气胸或肋骨骨折的证据。\n- 无纵隔移位。\n- 双侧膈肌位置升高。\n- 未观察到显著的骨异常。\n\n**印象：**\n- 心力衰竭伴肺水肿。\n- 可能的慢性肺疾病伴间质性改变。\n- 右侧胸腔积液。\n- 考虑心源性肺水肿为主要病因。",
+  "model": "QwenVL3",
+  "timestamp": "/home/midea/Work/CXRSentenceSplitter"
+}
