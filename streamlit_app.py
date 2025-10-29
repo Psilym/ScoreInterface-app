@@ -6,6 +6,7 @@ from pathlib import Path
 from PIL import Image
 import glob
 import base64
+import tempfile
 
 # 页面配置
 st.set_page_config(
@@ -246,169 +247,28 @@ def save_review(folder_path, model_name, username, review_data, save_path=None):
     
     return review_file
 
-def create_fixed_image_container(image_path, width=600, height=600):
-    """创建固定尺寸的图像容器"""
-    try:
-        # 读取图像并转换为base64
-        with open(image_path, "rb") as img_file:
-            img_data = base64.b64encode(img_file.read()).decode()
-        
-        # 创建HTML容器
-        html = f"""
-        <div style="
-            width: {width}px;
-            height: {height}px;
-            border: 1px solid #dee2e6;
-            border-radius: 0.375rem;
-            padding: 0.5rem;
-            background-color: #f8f9fa;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            position: relative;
-        ">
-            <img src="data:image/jpeg;base64,{img_data}" 
-                 style="
-                     max-width: 100%;
-                     max-height: 100%;
-                     object-fit: contain;
-                     display: block;
-                     margin: auto;
-                     position: absolute;
-                     top: 50%;
-                     left: 50%;
-                     transform: translate(-50%, -50%);
-                 " 
-                 alt="胸部X光片" />
-        </div>
-        """
-        return html
-    except Exception as e:
-        return f"<div style='color: red;'>图像加载失败: {e}</div>"
-
-def create_fixed_text_container(content, width=500, height=400, title="报告内容"):
-    """创建固定尺寸的文本容器"""
-    # 转义HTML特殊字符
-    import html
-    escaped_content = html.escape(content)
-    
-    # 创建HTML容器
-    html = f"""
-    <div style="
-        width: {width}px;
-        height: {height}px;
-        border: 1px solid #dee2e6;
-        border-radius: 0.375rem;
-        padding: 0.5rem;
-        background-color: #f8f9fa;
-        overflow-y: auto;
-        font-family: Arial, sans-serif;
-        font-size: 12px;
-        line-height: 1.4;
-        white-space: pre-wrap;
-        word-wrap: break-word;
-    ">
-        <div style="font-size: 14px; font-weight: bold; margin-bottom: 0.5rem; color: #495057;">{title}</div>
-        <div style="font-size: 12px;">{escaped_content}</div>
-    </div>
-    
-    <style>
-    .fixed-text-container::-webkit-scrollbar {{
-        width: 8px;
-    }}
-    .fixed-text-container::-webkit-scrollbar-track {{
-        background: #f1f1f1;
-        border-radius: 4px;
-    }}
-    .fixed-text-container::-webkit-scrollbar-thumb {{
-        background: #888;
-        border-radius: 4px;
-    }}
-    .fixed-text-container::-webkit-scrollbar-thumb:hover {{
-        background: #555;
-    }}
-    </style>
-    """
-    return html
-
-def create_findings_impression_containers(findings, impression, width=600, height=300):
-    """创建分别显示findings和impression的容器"""
-    import html
-    
-    findings_escaped = html.escape(findings) if findings else ""
-    impression_escaped = html.escape(impression) if impression else ""
-    
-    # 创建HTML容器
-    html_content = f"""
-    <div style="display: flex; flex-direction: column; gap: 1rem; width: {width}px;">
-        <!-- Findings容器 -->
-        <div style="
-            height: {height}px;
-            border: 1px solid #dee2e6;
-            border-radius: 0.375rem;
-            padding: 0.5rem;
-            background-color: #f8f9fa;
-            overflow-y: auto;
-            font-family: Arial, sans-serif;
-            font-size: 14px;
-            line-height: 1.4;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-        ">
-            <div style="font-size: 14px; font-weight: bold; margin-bottom: 0.5rem; color: #495057;">Findings</div>
-            <div style="font-size: 12px;">{findings_escaped}</div>
-        </div>
-        
-        <!-- Impression容器 -->
-        <div style="
-            height: {height}px;
-            border: 1px solid #dee2e6;
-            border-radius: 0.375rem;
-            padding: 0.5rem;
-            background-color: #f8f9fa;
-            overflow-y: auto;
-            font-family: Arial, sans-serif;
-            font-size: 14px;
-            line-height: 1.4;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-        ">
-            <div style="font-size: 14px; font-weight: bold; margin-bottom: 0.5rem; color: #495057;">Impression</div>
-            <div style="font-size: 12px;">{impression_escaped}</div>
-        </div>
-    </div>
-    
-    <style>
-    .report-container::-webkit-scrollbar {{
-        width: 8px;
-    }}
-    .report-container::-webkit-scrollbar-track {{
-        background: #f1f1f1;
-        border-radius: 4px;
-    }}
-    .report-container::-webkit-scrollbar-thumb {{
-        background: #888;
-        border-radius: 4px;
-    }}
-    .report-container::-webkit-scrollbar-thumb:hover {{
-        background: #555;
-    }}
-    </style>
-    """
-    return html_content
-
 def create_data_from_uploaded_files(uploaded_files):
     """从上传的文件创建数据"""
     data = {}
     
+    # 创建临时目录来存储上传的文件
+    temp_dir = tempfile.mkdtemp()
+    
+    # 保存所有上传的文件到临时目录
+    saved_files = {}
+    for file in uploaded_files:
+        file_path = os.path.join(temp_dir, file.name)
+        with open(file_path, 'wb') as f:
+            f.write(file.getvalue())
+        saved_files[file.name] = file_path
+    
     # 读取原始报告
     report_data = None
-    for file in uploaded_files:
-        if file.name.endswith('report.json'):
+    for filename, file_path in saved_files.items():
+        if filename.endswith('report.json'):
             try:
-                content = file.getvalue().decode('utf-8')
-                report_data = json.loads(content)
+                with open(file_path, 'r', encoding='utf-8') as f:
+                    report_data = json.load(f)
                 data['report'] = report_data
                 break
             except Exception as e:
@@ -423,7 +283,9 @@ def create_data_from_uploaded_files(uploaded_files):
         data['case_name'] = "unknown_case"
     
     # 读取图像文件 - 选择image_{n}.jpg中n最小的文件
-    image_files = [f for f in uploaded_files if f.name.startswith('image_') and f.name.endswith(('.jpg', '.png'))]
+    image_files = {name: path for name, path in saved_files.items() 
+                  if name.startswith('image_') and name.endswith(('.jpg', '.png'))}
+    
     if image_files:
         # 提取文件名中的数字并排序，选择n最小的
         def extract_number(filename):
@@ -431,25 +293,21 @@ def create_data_from_uploaded_files(uploaded_files):
             match = re.search(r'image_(\d+)\.', filename)
             return int(match.group(1)) if match else float('inf')
         
-        image_files.sort(key=lambda f: extract_number(f.name))
-        # 将图像文件保存到临时位置供显示
-        import tempfile
-        temp_image_path = tempfile.NamedTemporaryFile(delete=False, suffix='.jpg')
-        temp_image_path.write(image_files[0].getvalue())
-        temp_image_path.close()
-        data['image'] = temp_image_path.name
+        sorted_images = sorted(image_files.items(), key=lambda x: extract_number(x[0]))
+        data['image'] = sorted_images[0][1]  # 取n最小的图像文件路径
+        data['temp_dir'] = temp_dir  # 保存临时目录路径以便后续清理
     
     # 读取所有模型预测文件
     data['models'] = {}
     
-    for file in uploaded_files:
-        if file.name.endswith('_predict.json'):
-            model_name = file.name.replace('_predict.json', '')
+    for filename, file_path in saved_files.items():
+        if filename.endswith('_predict.json'):
+            model_name = filename.replace('_predict.json', '')
             try:
-                content = file.getvalue().decode('utf-8')
-                data['models'][model_name] = json.loads(content)
+                with open(file_path, 'r', encoding='utf-8') as f:
+                    data['models'][model_name] = json.load(f)
             except Exception as e:
-                st.error(f"读取{file.name}失败: {e}")
+                st.error(f"读取{filename}失败: {e}")
     
     # 检查是否已有review文件（支持新的命名规则）
     data['reviews'] = {}
@@ -457,26 +315,44 @@ def create_data_from_uploaded_files(uploaded_files):
     
     for model_name in data['models'].keys():
         # 查找所有相关的review文件
-        review_files = [f for f in uploaded_files if f.name.startswith(f"{model_name}_review")]
-        data['review_files'][model_name] = review_files
+        review_files = {name: path for name, path in saved_files.items() 
+                       if name.startswith(f"{model_name}_review")}
+        data['review_files'][model_name] = list(review_files.values())
         
         # 如果有review文件，加载最新的一个
         if review_files:
-            # 按修改时间排序，取最新的
-            latest_review = max(review_files, key=lambda f: f.name)
+            # 按文件名排序，取最新的（假设文件名包含时间戳或序号）
+            latest_review_path = sorted(review_files.values())[-1]
             try:
-                content = latest_review.getvalue().decode('utf-8')
-                data['reviews'][model_name] = json.loads(content)
+                with open(latest_review_path, 'r', encoding='utf-8') as f:
+                    data['reviews'][model_name] = json.load(f)
             except Exception as e:
                 st.error(f"读取review文件失败: {e}")
     
     return data
 
+def cleanup_temp_files(data):
+    """清理临时文件"""
+    if 'temp_dir' in data and os.path.exists(data['temp_dir']):
+        import shutil
+        try:
+            shutil.rmtree(data['temp_dir'])
+        except:
+            pass
+
 def main():
     st.markdown('<div class="main-header">报告评估系统</div>', unsafe_allow_html=True)
+    
+    # 初始化session state
+    if 'current_data' not in st.session_state:
+        st.session_state.current_data = None
+    if 'uploaded_files_key' not in st.session_state:
+        st.session_state.uploaded_files_key = 0
+    
     # 用户名输入
     st.sidebar.header("👤 用户信息")
-    username = st.sidebar.text_input("用户名:", placeholder="请输入您的用户名")
+    username = st.sidebar.text_input("用户名:", placeholder="请输入您的用户名", 
+                                   key="username_input")
     
     # 侧边栏 - 文件夹选择
     st.sidebar.header("📁 上传数据文件夹")
@@ -497,68 +373,38 @@ def main():
         "上传病例文件夹文件",
         type=['jpg', 'jpeg', 'png', 'json'],
         accept_multiple_files=True,
-        help="请选择包含图像和报告的文件夹中的所有文件"
+        help="请选择包含图像和报告的文件夹中的所有文件",
+        key=f"file_uploader_{st.session_state.uploaded_files_key}"
     )
+    
     
     # 处理上传的文件
     if uploaded_files:
-        # 检查是否包含subject文件夹结构的文件
-        has_subject_files = any(
-            file.name.startswith("subject_") or 
-            "subject_" in file.name or
-            file.name.endswith(("_predict.json", "report.json", "image_1.jpg"))
-            for file in uploaded_files
-        )
+        # 检查文件是否发生变化
+        current_file_names = sorted([f.name for f in uploaded_files])
         
-        if has_subject_files:
-            # 从上传的文件中提取原始文件夹名称
-            original_folder_name = None
+        # 如果数据不存在或文件发生变化，重新加载数据
+        if (st.session_state.current_data is None or 
+            'uploaded_file_names' not in st.session_state or
+            st.session_state.uploaded_file_names != current_file_names):
             
-            # 方法1: 查找包含subject的文件名
-            for file in uploaded_files:
-                if "subject_" in file.name:
-                    # 提取文件夹名称（假设文件名格式为 subject_xxx_study_xxx/xxx.jpg）
-                    parts = file.name.split('/')
-                    if len(parts) > 1:
-                        original_folder_name = parts[0]
-                        break
-                    else:
-                        # 如果文件名直接包含subject_，使用文件名作为文件夹名
-                        original_folder_name = file.name.split('.')[0]
-                        break
+            # 清理之前的临时文件
+            if st.session_state.current_data:
+                cleanup_temp_files(st.session_state.current_data)
             
-            # 方法2: 如果没有找到subject文件，查找其他可能的文件夹结构
-            if not original_folder_name:
-                for file in uploaded_files:
-                    if '/' in file.name:
-                        folder_part = file.name.split('/')[0]
-                        # 检查是否是合理的文件夹名（不是临时文件名）
-                        if not folder_part.startswith('tmp') and len(folder_part) > 3:
-                            original_folder_name = folder_part
-                            break
+            # 显示加载状态
+            with st.spinner('正在加载文件...'):
+                st.session_state.current_data = create_data_from_uploaded_files(uploaded_files)
+                st.session_state.uploaded_file_names = current_file_names
             
-            # 方法3: 如果还是没有找到，使用第一个文件的目录名
-            if not original_folder_name:
-                first_file = uploaded_files[0]
-                if '/' in first_file.name:
-                    original_folder_name = first_file.name.split('/')[0]
-                else:
-                    # 使用第一个文件的名称（去掉扩展名）作为文件夹名
-                    original_folder_name = first_file.name.split('.')[0]
-            
-            # 确保文件夹名称不为空
-            if not original_folder_name or original_folder_name == "":
-                original_folder_name = "uploaded_case"
-            
-            # 直接从上传的文件创建数据
-            data = create_data_from_uploaded_files(uploaded_files)
-            
-            # 使用从report.json中提取的病例名称
-            case_name = data.get('case_name', original_folder_name)
-            
-            # 调试信息：显示提取的文件夹名称和病例名称
-            st.sidebar.info(f"📄 上传文件数量: {len(uploaded_files)}")
-            
+            st.success("文件加载完成！")
+        
+        data = st.session_state.current_data
+        
+        # 检查是否包含必要的文件
+        has_necessary_files = data.get('report') is not None and data.get('image') is not None
+        
+        if has_necessary_files:
             # 侧边栏 - 模型选择
             st.sidebar.header("🤖 模型选择")
             
@@ -581,20 +427,32 @@ def main():
                     selected_model = selected_option.split(" ", 1)[1] if " " in selected_option else selected_option
                 
                 # 主界面显示
-                display_main_interface(data, selected_model, case_name, username, case_name)
+                display_main_interface(data, selected_model, username)
             else:
                 st.error("未找到任何模型预测文件 (*_predict.json)")
         else:
-            st.error("上传的文件不包含有效的病例数据，请确保包含图像、报告和模型预测文件")
+            st.error("上传的文件不包含完整的病例数据，请确保包含图像文件和报告文件")
+            
+            # 显示调试信息
+            with st.expander("调试信息"):
+                st.write("找到的文件:", list(data.keys()))
+                if 'report' not in data:
+                    st.error("缺少 report.json 文件")
+                if 'image' not in data:
+                    st.error("缺少图像文件 (image_*.jpg 或 image_*.png)")
     else:
+        # 清理临时数据
+        if st.session_state.current_data:
+            cleanup_temp_files(st.session_state.current_data)
+            st.session_state.current_data = None
+        
         st.info("💡 请上传病例文件夹文件开始评估")
 
-def display_main_interface(data, selected_model, case_name, username, usr_dir):
+def display_main_interface(data, selected_model, username):
     """显示主界面"""
     
-    # 顶部信息显示 - 病例名称和状态在同一行
-    # 使用传递的病例名称
-    folder_name = case_name
+    # 使用从数据中提取的病例名称
+    case_name = data.get('case_name', 'unknown_case')
     
     # 检查处理状态
     if selected_model in data.get('reviews', {}):
@@ -607,128 +465,93 @@ def display_main_interface(data, selected_model, case_name, username, usr_dir):
         is_processed = False
     
     # 在同一行显示病例名称和状态
-    st.markdown(f"**当前病例:** {folder_name} <span class='status-badge {status_class}'>{status_text}</span>", unsafe_allow_html=True)
+    st.markdown(f"**当前病例:** {case_name} <span class='status-badge {status_class}'>{status_text}</span>", unsafe_allow_html=True)
     
     # 创建三列布局：图像、报告、打分系统
     col1, col2, col3 = st.columns([1, 1, 1])
     
     with col1:
-        # 图像显示 - 可收起和展开
+        # 图像显示
         if 'image' in data and os.path.exists(data['image']):
             with st.expander("🖼️ 医学图像", expanded=True):
                 try:
-                    st.image(data['image'], caption="胸部X光片", width=400)
+                    # 使用PIL打开图像以确保兼容性
+                    image = Image.open(data['image'])
+                    st.image(image, caption="胸部X光片", use_container_width=True)
                 except Exception as e:
                     st.error(f"图像加载失败: {e}")
+                    # 显示调试信息
+                    st.write(f"图像路径: {data['image']}")
+                    st.write(f"文件存在: {os.path.exists(data['image'])}")
         else:
             st.warning("未找到图像文件")
+            if 'image' in data:
+                st.write(f"图像路径: {data['image']}")
     
     with col2:
-        # 原始报告显示（上半部分，对齐图像上边界）
+        # 原始报告显示
         if 'report' in data:
             st.markdown('<div class="section-title">📋 原始报告</div>', unsafe_allow_html=True)
             
-            # 直接使用字段内容，将markdown和换行符显示为纯文本
-            findings_raw = data['report'].get('findings', '')
-            impression_raw = data['report'].get('impression', '')
-            
-            # 将文本转换为纯文本显示（保留所有特殊字符）
-            findings = findings_raw.replace('\n', '\\n').replace('\t', '\\t').replace('\r', '\\r')
-            impression = impression_raw.replace('\n', '\\n').replace('\t', '\\t').replace('\r', '\\r')
+            findings = data['report'].get('findings', '')
+            impression = data['report'].get('impression', '')
             
             # Findings部分
             st.markdown("**Findings:**")
             findings_container = st.container()
             with findings_container:
-                st.markdown(f"""
-                <div style="
-                    height: 140px;
-                    border: 1px solid #dee2e6;
-                    border-radius: 0.375rem;
-                    padding: 0.5rem;
-                    background-color: #f8f9fa;
-                    overflow-y: auto;
-                    font-family: 'Courier New', monospace;
-                    font-size: 14px;
-                    line-height: 1.4;
-                    white-space: pre-wrap;
-                    word-wrap: break-word;
-                ">{findings}</div>
-                """, unsafe_allow_html=True)
+                st.text_area(
+                    "Findings内容",
+                    value=findings,
+                    height=140,
+                    key="original_findings",
+                    label_visibility="collapsed"
+                )
             
             # Impression部分
             st.markdown("**Impression:**")
             impression_container = st.container()
             with impression_container:
-                st.markdown(f"""
-                <div style="
-                    height: 140px;
-                    border: 1px solid #dee2e6;
-                    border-radius: 0.375rem;
-                    padding: 0.5rem;
-                    background-color: #f8f9fa;
-                    overflow-y: auto;
-                    font-family: 'Courier New', monospace;
-                    font-size: 14px;
-                    line-height: 1.4;
-                    white-space: pre-wrap;
-                    word-wrap: break-word;
-                ">{impression}</div>
-                """, unsafe_allow_html=True)
+                st.text_area(
+                    "Impression内容",
+                    value=impression,
+                    height=140,
+                    key="original_impression",
+                    label_visibility="collapsed"
+                )
         
-        # 预测报告显示（下半部分，对齐图像下边界）
+        # 预测报告显示
         if selected_model in data.get('models', {}):
             model_data = data['models'][selected_model]
             
             st.markdown('<div class="section-title">🤖 模型预测报告</div>', unsafe_allow_html=True)
             
-            # 直接使用字段内容，将markdown和换行符显示为纯文本
-            model_findings_raw = model_data.get('findings', '')
-            model_impression_raw = model_data.get('impression', '')
-            
-            # 将文本转换为纯文本显示（保留所有特殊字符）
-            model_findings = model_findings_raw.replace('\n', '\\n').replace('\t', '\\t').replace('\r', '\\r')
-            model_impression = model_impression_raw.replace('\n', '\\n').replace('\t', '\\t').replace('\r', '\\r')
+            model_findings = model_data.get('findings', '')
+            model_impression = model_data.get('impression', '')
             
             # 模型Findings部分
             st.markdown("**Findings:**")
             model_findings_container = st.container()
             with model_findings_container:
-                st.markdown(f"""
-                <div style="
-                    height: 140px;
-                    border: 1px solid #dee2e6;
-                    border-radius: 0.375rem;
-                    padding: 0.5rem;
-                    background-color: #f8f9fa;
-                    overflow-y: auto;
-                    font-family: 'Courier New', monospace;
-                    font-size: 14px;
-                    line-height: 1.4;
-                    white-space: pre-wrap;
-                    word-wrap: break-word;
-                ">{model_findings}</div>
-                """, unsafe_allow_html=True)
+                st.text_area(
+                    "模型Findings内容",
+                    value=model_findings,
+                    height=140,
+                    key="model_findings",
+                    label_visibility="collapsed"
+                )
             
             # 模型Impression部分
             st.markdown("**Impression:**")
             model_impression_container = st.container()
             with model_impression_container:
-                st.markdown(f"""
-                <div style="
-                    height: 140px;
-                    border: 1px solid #dee2e6;
-                    border-radius: 0.375rem;
-                    padding: 0.5rem;
-                    background-color: #f8f9fa;
-                    overflow-y: auto;
-                    font-family: 'Courier New', monospace;
-                    font-size: 14px;
-                    line-height: 1.4;
-                    white-space: pre-wrap;
-                    word-wrap: break-word;
-                ">{model_impression}</div>
-                """, unsafe_allow_html=True)
+                st.text_area(
+                    "模型Impression内容",
+                    value=model_impression,
+                    height=140,
+                    key="model_impression",
+                    label_visibility="collapsed"
+                )
     
     with col3:
         # 用户名验证
@@ -737,7 +560,6 @@ def display_main_interface(data, selected_model, case_name, username, usr_dir):
             return
         
         # 打分系统
-        # st.markdown('<div class="scoring-section">', unsafe_allow_html=True)
         st.markdown('<div class="section-title">📊 打分系统</div>', unsafe_allow_html=True)
         
         # 显示用户名信息
@@ -748,7 +570,6 @@ def display_main_interface(data, selected_model, case_name, username, usr_dir):
         
         # PEER打分
         st.markdown("**PEER打分 (0-5分):**")
-    
         
         peer_score = st.slider(
             "评分",
@@ -757,7 +578,7 @@ def display_main_interface(data, selected_model, case_name, username, usr_dir):
             value=previous_review.get('peer_score', 0),
             step=1,
             key=f"peer_score_{selected_model}",
-            label_visibility="collapsed"  # 隐藏标签
+            label_visibility="collapsed"
         )
         
         # 添加帮助信息
@@ -788,32 +609,25 @@ def display_main_interface(data, selected_model, case_name, username, usr_dir):
             **0分 - 不可接受**
             - 所描述的信息完全没有重叠
             """)
-
         
         # 准备保存的数据
         review_data = {
             "model_name": selected_model,
             "peer_score": peer_score,
             "timestamp": str(Path().cwd()),
-            "folder_name": folder_name
+            "case_name": data.get('case_name', 'unknown_case')
         }
         
         # 将数据转换为JSON字符串
-        import json
         json_data = json.dumps(review_data, ensure_ascii=False, indent=2)
         
         # 生成文件名
-        # 从当前数据中查找该用户该模型的最大review_number
         review_number = 0
-        
-        # 查找该用户该模型的所有review文件
         if selected_model in data.get('reviews', {}):
             current_review = data['reviews'][selected_model]
-            # 检查是否是同一个用户的review
             if current_review.get('username') == username and 'review_number' in current_review:
-                review_number = current_review['review_number'] + 1
+                review_number = current_review.get('review_number', 0) + 1
         
-        # 如果没有找到该用户的review文件，从0开始
         filename = f"{selected_model}_review_{username}_{review_number}.json"
         
         # 下载按钮
