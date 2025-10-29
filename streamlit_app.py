@@ -348,6 +348,8 @@ def main():
         st.session_state.current_data = None
     if 'uploaded_files_key' not in st.session_state:
         st.session_state.uploaded_files_key = 0
+    if 'uploaded_once' not in st.session_state:
+        st.session_state.uploaded_once = False
     
     # 用户名输入
     st.sidebar.header("👤 用户信息")
@@ -368,17 +370,19 @@ def main():
         - `{model_name}_predict.json` 文件
         """)
     
-    # 文件上传功能 - 支持多种格式
-    uploaded_files = st.sidebar.file_uploader(
-        "上传病例文件夹文件",
-        type=['jpg', 'jpeg', 'png', 'json'],
-        accept_multiple_files=True,
-        help="请选择包含图像和报告的文件夹中的所有文件",
-        key=f"file_uploader_{st.session_state.uploaded_files_key}"
-    )
+    # 文件上传功能 - 支持多种格式（仅允许一次）
+    uploaded_files = None
+    if not st.session_state.uploaded_once:
+        uploaded_files = st.sidebar.file_uploader(
+            "上传病例文件夹文件",
+            type=['jpg', 'jpeg', 'png', 'json'],
+            accept_multiple_files=True,
+            help="请选择包含图像和报告的文件夹中的所有文件",
+            key=f"file_uploader_{st.session_state.uploaded_files_key}"
+        )
     
     
-    # 处理上传的文件
+    # 处理上传的文件（仅首次）
     if uploaded_files:
         # 检查文件是否发生变化
         current_file_names = sorted([f.name for f in uploaded_files])
@@ -405,6 +409,11 @@ def main():
         has_necessary_files = data.get('report') is not None and data.get('image') is not None
         
         if has_necessary_files:
+            # 首次成功上传且校验通过：锁定上传控件
+            if not st.session_state.uploaded_once:
+                st.session_state.uploaded_once = True
+                st.rerun()
+
             # 侧边栏 - 模型选择
             st.sidebar.header("🤖 模型选择")
             
@@ -441,12 +450,31 @@ def main():
                 if 'image' not in data:
                     st.error("缺少图像文件 (image_*.jpg 或 image_*.png)")
     else:
-        # 清理临时数据
-        if st.session_state.current_data:
-            cleanup_temp_files(st.session_state.current_data)
-            st.session_state.current_data = None
-        
-        st.info("💡 请上传病例文件夹文件开始评估")
+        # 未选择文件：若已上传过，继续展示；否则提示上传
+        if st.session_state.uploaded_once and st.session_state.current_data:
+            data = st.session_state.current_data
+            has_necessary_files = data.get('report') is not None and data.get('image') is not None
+            if has_necessary_files:
+                st.sidebar.header("🤖 模型选择")
+                if data.get('models'):
+                    with st.sidebar.expander("选择模型", expanded=True):
+                        model_options = []
+                        for model_name in data['models'].keys():
+                            status = "✅" if model_name in data.get('reviews', {}) else "❌"
+                            model_options.append(f"{status} {model_name}")
+                        selected_option = st.radio(
+                            "可用模型:",
+                            model_options,
+                            key="model_selection_after_upload"
+                        )
+                        selected_model = selected_option.split(" ", 1)[1] if " " in selected_option else selected_option
+                    display_main_interface(data, selected_model, username)
+                else:
+                    st.error("未找到任何模型预测文件 (*_predict.json)")
+            else:
+                st.error("上传的文件不包含完整的病例数据，请确保包含图像文件和报告文件")
+        else:
+            st.info("💡 请上传病例文件夹文件开始评估")
 
 def display_main_interface(data, selected_model, username):
     """显示主界面"""
