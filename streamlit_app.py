@@ -7,6 +7,7 @@ from PIL import Image
 import glob
 import base64
 import tempfile
+import time
 
 # 页面配置
 st.set_page_config(
@@ -340,6 +341,54 @@ def cleanup_temp_files(data):
         except:
             pass
 
+def get_server_upload_root() -> Path:
+    """返回服务器端保存上传病例的根目录并确保存在"""
+    root = Path(__file__).parent / "uploaded_cases"
+    root.mkdir(parents=True, exist_ok=True)
+    return root
+
+def infer_case_name_from_upload(uploaded_files) -> str:
+    """根据report.json推断病例名，若无法推断则使用时间戳生成"""
+    subject_id = None
+    study_id = None
+    for f in uploaded_files:
+        if f.name.endswith('report.json'):
+            try:
+                content = f.getvalue().decode('utf-8')
+                rep = json.loads(content)
+                subject_id = rep.get('subject_id')
+                study_id = rep.get('study_id')
+                break
+            except Exception:
+                pass
+    if subject_id and study_id:
+        return f"subject_{subject_id}_study_{study_id}"
+    # 兜底：时间戳+随机片段
+    return f"uploaded_case_{int(time.time())}"
+
+def save_uploaded_folder_to_server(uploaded_files) -> Path:
+    """将上传的文件保存到服务器端目录，返回保存的病例目录路径"""
+    root = get_server_upload_root()
+    case_name = infer_case_name_from_upload(uploaded_files)
+    target_dir = root / case_name
+    # 若已存在同名，追加索引避免覆盖
+    idx = 1
+    final_dir = target_dir
+    while final_dir.exists():
+        final_dir = Path(str(target_dir) + f"_{idx}")
+        idx += 1
+    final_dir.mkdir(parents=True, exist_ok=True)
+    # 保存文件
+    for f in uploaded_files:
+        # 保持原始文件名
+        out_path = final_dir / Path(f.name).name
+        try:
+            with open(out_path, 'wb') as wf:
+                wf.write(f.getvalue())
+        except Exception as e:
+            st.error(f"保存文件失败: {f.name} -> {e}")
+    return final_dir
+
 def main():
     st.markdown('<div class="main-header">报告评估系统</div>', unsafe_allow_html=True)
     
@@ -397,8 +446,12 @@ def main():
                 cleanup_temp_files(st.session_state.current_data)
             
             # 显示加载状态
-            with st.spinner('正在加载文件...'):
-                st.session_state.current_data = create_data_from_uploaded_files(uploaded_files)
+            with st.spinner('正在并加载文件...'):
+                # 将上传内容保存到服务器目录
+                saved_dir = save_uploaded_folder_to_server(uploaded_files)
+                # 从服务器目录读取规范化数据
+                st.session_state.current_data = load_folder_data(str(saved_dir))
+                st.session_state.saved_dir = str(saved_dir)
                 st.session_state.uploaded_file_names = current_file_names
             
             st.success("文件加载完成！")
@@ -450,7 +503,7 @@ def main():
                 if 'image' not in data:
                     st.error("缺少图像文件 (image_*.jpg 或 image_*.png)")
     else:
-        # 未选择文件：若已上传过，继续展示；否则提示上传
+        # 未选择文件：若已上传过，继续从服务器目录读取展示；否则提示上传
         if st.session_state.uploaded_once and st.session_state.current_data:
             data = st.session_state.current_data
             has_necessary_files = data.get('report') is not None and data.get('image') is not None
@@ -468,6 +521,10 @@ def main():
                             key="model_selection_after_upload"
                         )
                         selected_model = selected_option.split(" ", 1)[1] if " " in selected_option else selected_option
+                    # 确保最新从服务器目录读取（避免内存态过期）
+                    if 'saved_dir' in st.session_state and st.session_state.saved_dir and os.path.isdir(st.session_state.saved_dir):
+                        data = load_folder_data(st.session_state.saved_dir)
+                        st.session_state.current_data = data
                     display_main_interface(data, selected_model, username)
                 else:
                     st.error("未找到任何模型预测文件 (*_predict.json)")
