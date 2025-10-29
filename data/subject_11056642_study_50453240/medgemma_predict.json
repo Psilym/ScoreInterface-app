@@ -1,0 +1,9 @@
+{
+  "folder_name": "subject_11056642_study_50453240",
+  "image_file": "/home/midea/Work/CXRSentenceSplitter/data/reader_study/selected_cases100/high_quality_reports_100_with_images/subject_11056642_study_50453240/image_1.jpg",
+  "findings": "*   **心脏增大（Cardiomegaly）：** 心脏轮廓显得增大。\n*   **肺水肿（Pulmonary Edema）：** 双侧间质性和肺泡性不透明影，主要位于下肺野，符合肺水肿表现。可见 Kerley B 线。\n*   **胸腔积液（Pleural Effusions）：** 存在双侧少量胸腔积液，右侧更为明显。\n*   **纵隔增宽（Mediastinal Widening）：** 纵隔显得略宽。\n*   **肺不张（Atelectasis）：** 可能存在一定程度的双侧基底段肺不张。\n*   **植入装置（Device）：** 存在植入装置，可能是起搏器或 ICD，导线终止于右心房和右心室。",
+  "impression": "*   **心力衰竭（充血性心力衰竭）：** 心脏增大、肺水肿和胸腔积液的发现高度提示心力衰竭（充血性心力衰竭）。\n*   **可能的心脏增大：** 如果尚未明确，心脏轮廓增大的情况需要进一步评估。",
+  "full_response": "**检查结果：**\n\n*   **心脏增大（Cardiomegaly）：** 心脏轮廓显得增大。\n*   **肺水肿（Pulmonary Edema）：** 双侧间质性和肺泡性不透明影，主要位于下肺野，符合肺水肿的表现。可见 Kerley B 线。\n*   **胸腔积液（Pleural Effusions）：** 存在双侧少量胸腔积液，右侧更为明显。\n*   **纵隔增宽（Mediastinal Widening）：** 纵隔显得略宽。\n*   **肺不张（Atelectasis）：** 可能存在双侧基底部分度不张。\n*   **植入装置（Device）：** 存在植入装置，可能是起搏器或 ICD，导线终止于右心房和右心室。\n\n**印象：**\n\n*   **心力衰竭（Congestive Heart Failure）：** 心脏增大、肺水肿和胸腔积液的发现高度提示心力衰竭。\n*   **可能的心脏增大（Possible Cardiomegaly）：** 如果尚未明确，心脏轮廓增大的情况需要进一步评估。",
+  "model": "MedGemma",
+  "timestamp": "/home/midea/Work/CXRSentenceSplitter/scripts"
+}

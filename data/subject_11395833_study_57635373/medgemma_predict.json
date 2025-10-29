@@ -1,0 +1,9 @@
+{
+  "folder_name": "subject_11395833_study_57635373",
+  "image_file": "/home/midea/Work/CXRSentenceSplitter/data/reader_study/selected_cases100/high_quality_reports_100_with_images/subject_11395833_study_57635373/image_1.jpg",
+  "findings": "*   **心胸轮廓（Cardiomediastinal Silhouette）：** 心脏大小在正常范围内。纵隔轮廓无异常。\n*   **肺部（Lungs）：** 右下肺野可见一大片边界不清的阴影，符合大量胸腔积液的表现。该阴影遮盖了右侧膈肌和右心缘。右下肺叶可能伴有肺不张。左肺相对清晰，但可能存在少量左侧胸腔积液。未见气胸。\n*   **骨骼（Bones）：** 未见急性骨异常。\n*   **其他（Other）：** 左侧胸壁可见一电子设备（可能是心率监测器）。",
+  "impression": "*   右侧大量胸腔积液，伴有右下肺叶不张。\n*   可能存在左侧少量胸腔积液。\n*   建议进一步评估（如胸腔穿刺、CT扫描）以确定积液的病因。",
+  "full_response": "**检查结果：**\n\n*   **心膈轮廓：** 心脏大小在正常范围内。纵隔轮廓无异常。\n*   **肺部：** 右下肺野可见一大片边界不清的阴影，符合大量胸腔积液的表现。该阴影遮盖了右侧膈肌和右心缘。右下肺叶可能伴有肺不张。左肺相对清晰，但可能存在少量左侧胸腔积液。未见气胸。\n*   **骨骼：** 未见急性骨异常。\n*   **其他：** 左侧胸壁可见一电子设备（可能是心率监测器）。\n\n**印象：**\n\n*   右侧大量胸腔积液，伴有右下肺叶肺不张。\n*   可能存在左侧少量胸腔积液。\n*   建议进一步评估（如胸腔穿刺、CT扫描）以确定积液的病因。",
+  "model": "MedGemma",
+  "timestamp": "/home/midea/Work/CXRSentenceSplitter/scripts"
+}

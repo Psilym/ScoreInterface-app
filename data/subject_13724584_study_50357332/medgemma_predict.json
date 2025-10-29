@@ -1,0 +1,9 @@
+{
+  "folder_name": "subject_13724584_study_50357332",
+  "image_file": "/home/midea/Work/CXRSentenceSplitter/data/reader_study/selected_cases100/high_quality_reports_100_with_images/subject_13724584_study_50357332/image_1.jpg",
+  "findings": "*   **心脏增大（Cardiomegaly）：** 心脏轮廓显得增大。\n*   **肺水肿（Pulmonary Edema）：** 双侧弥漫性间质性和肺泡性不透明影，符合肺水肿的表现。特征为间质标记增多、Kerley B线（肺周边的短水平线）以及模糊的不透明影，尤其是在下肺野更为明显。\n*   **胸腔积液（Pleural Effusions）：** 存在双侧少量胸腔积液，导致肋膈角变钝。\n*   **起搏器装置（Pacing Device）：** 左侧胸大肌起搏器存在，导线终止于右心房和右心室。\n*   **纵隔增宽（Mediastinal Widening）：** 纵隔显得略微增宽，可能由于血管充血或其他原因所致。",
+  "impression": "**心力衰竭：** 心脏增大、肺水肿和胸腔积液的发现高度提示急性或慢性心力衰竭。",
+  "full_response": "**发现：**\n\n*   **心脏增大（Cardiomegaly）：** 心脏轮廓显得增大。\n*   **肺水肿（Pulmonary Edema）：** 双侧弥漫性间质性和肺泡性不透明影，符合肺水肿的表现。特征为间质标记增多、Kerley B线（肺周边的短水平线）以及模糊的不透明影，尤其是在下肺野更为明显。\n*   **胸腔积液（Pleural Effusions）：** 存在双侧少量胸腔积液，导致肋膈角变钝。\n*   **起搏器装置（Pacing Device）：** 左侧胸大肌起搏器存在，导线终止于右心房和右心室。\n*   **纵隔增宽（Mediastinal Widening）：** 纵隔显得略微增宽，可能由于血管充血或其他原因所致。\n\n**印象：**\n\n*   **心力衰竭（Congestive Heart Failure）：** 心脏增大、肺水肿和胸腔积液的发现高度提示急性或慢性心力衰竭。",
+  "model": "MedGemma",
+  "timestamp": "/home/midea/Work/CXRSentenceSplitter/scripts"
+}
