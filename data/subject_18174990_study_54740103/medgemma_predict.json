@@ -1,0 +1,9 @@
+{
+  "folder_name": "subject_18174990_study_54740103",
+  "image_file": "/home/midea/Work/CXRSentenceSplitter/data/reader_study/selected_cases100/high_quality_reports_100_with_images/subject_18174990_study_54740103/image_1.jpg",
+  "findings": "*   **心脏增大（Cardiomegaly）：** 心脏轮廓显得增大。\n*   **肺水肿（Pulmonary Edema）：** 双侧间质和肺泡出现混浊，主要集中在下肺野，符合肺水肿的表现。可见 Kerley B 线。\n*   **胸腔积液（Pleural Effusions）：** 存在双侧少量胸腔积液，右侧更为明显。\n*   **纵隔增宽（Mediastinal Widening）：** 纵隔显得增宽。\n*   **肺门增大（Hilar Enlargement）：** 肺门显得增大。\n*   **肺不张（Atelectasis）：** 可能存在一定程度的双侧基底肺不张。",
+  "impression": "*   **心力衰竭（CHF）：** 心脏增大、肺水肿、胸腔积液以及可能的纵隔增宽强烈提示急性或慢性心力衰竭。\n*   **可能的潜在心脏病变：** 心脏增大和纵隔增宽需要进一步检查以评估潜在的心脏结构和功能。",
+  "full_response": "**发现：**\n\n*   **心脏增大（Cardiomegaly）：** 心脏轮廓显得增大。\n*   **肺水肿（Pulmonary Edema）：** 双侧间质性和肺泡性不透明影，主要位于下肺野，符合肺水肿的表现。可见 Kerley B 线。\n*   **胸腔积液（Pleural Effusions）：** 存在双侧少量胸腔积液，右侧更为明显。\n*   **纵隔增宽（Mediastinal Widening）：** 纵隔显得增宽。\n*   **肺门增大（Hilar Enlargement）：** 肺门显得增大。\n*   **肺不张（Atelectasis）：** 可能存在双侧基底部分度不张。\n\n**印象：**\n\n*   **心力衰竭（Congestive Heart Failure, CHF）：** 心脏增大、肺水肿、胸腔积液以及可能的纵隔增宽强烈提示急性或慢性心力衰竭。\n*   **可能的潜在心脏病变：** 心脏增大和纵隔增宽需要进一步检查以评估潜在的心脏结构和功能。",
+  "model": "MedGemma",
+  "timestamp": "/home/midea/Work/CXRSentenceSplitter/scripts"
+}
