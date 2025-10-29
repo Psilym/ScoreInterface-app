@@ -7,7 +7,6 @@ from PIL import Image
 import glob
 import base64
 import tempfile
-import time
 
 # 页面配置
 st.set_page_config(
@@ -154,6 +153,16 @@ def load_folder_data(folder_path):
     if os.path.exists(report_file):
         with open(report_file, 'r', encoding='utf-8') as f:
             data['report'] = json.load(f)
+    
+    # 从report.json中提取subject_id和study_id，生成case_name
+    if data.get('report'):
+        subject_id = data['report'].get('subject_id', 'unknown')
+        study_id = data['report'].get('study_id', 'unknown')
+        data['case_name'] = f"subject_{subject_id}_study_{study_id}"
+    else:
+        # 如果report.json不存在，使用文件夹名称作为case_name
+        folder_name = os.path.basename(folder_path)
+        data['case_name'] = folder_name
     
     # 读取图像文件 - 选择image_{n}.jpg中n最小的文件
     image_files = glob.glob(os.path.join(folder_path, "image_*.jpg")) + glob.glob(os.path.join(folder_path, "image_*.png"))
@@ -341,64 +350,12 @@ def cleanup_temp_files(data):
         except:
             pass
 
-def get_server_upload_root() -> Path:
-    """返回服务器端保存上传病例的根目录并确保存在"""
-    root = Path(__file__).parent / "uploaded_cases"
-    root.mkdir(parents=True, exist_ok=True)
-    return root
-
-def infer_case_name_from_upload(uploaded_files) -> str:
-    """根据report.json推断病例名，若无法推断则使用时间戳生成"""
-    subject_id = None
-    study_id = None
-    for f in uploaded_files:
-        if f.name.endswith('report.json'):
-            try:
-                content = f.getvalue().decode('utf-8')
-                rep = json.loads(content)
-                subject_id = rep.get('subject_id')
-                study_id = rep.get('study_id')
-                break
-            except Exception:
-                pass
-    if subject_id and study_id:
-        return f"subject_{subject_id}_study_{study_id}"
-    # 兜底：时间戳+随机片段
-    return f"uploaded_case_{int(time.time())}"
-
-def save_uploaded_folder_to_server(uploaded_files) -> Path:
-    """将上传的文件保存到服务器端目录，返回保存的病例目录路径"""
-    root = get_server_upload_root()
-    case_name = infer_case_name_from_upload(uploaded_files)
-    target_dir = root / case_name
-    # 若已存在同名，追加索引避免覆盖
-    idx = 1
-    final_dir = target_dir
-    while final_dir.exists():
-        final_dir = Path(str(target_dir) + f"_{idx}")
-        idx += 1
-    final_dir.mkdir(parents=True, exist_ok=True)
-    # 保存文件
-    for f in uploaded_files:
-        # 保持原始文件名
-        out_path = final_dir / Path(f.name).name
-        try:
-            with open(out_path, 'wb') as wf:
-                wf.write(f.getvalue())
-        except Exception as e:
-            st.error(f"保存文件失败: {f.name} -> {e}")
-    return final_dir
-
 def main():
     st.markdown('<div class="main-header">报告评估系统</div>', unsafe_allow_html=True)
     
     # 初始化session state
     if 'current_data' not in st.session_state:
         st.session_state.current_data = None
-    if 'uploaded_files_key' not in st.session_state:
-        st.session_state.uploaded_files_key = 0
-    if 'uploaded_once' not in st.session_state:
-        st.session_state.uploaded_once = False
     
     # 用户名输入
     st.sidebar.header("👤 用户信息")
@@ -406,7 +363,7 @@ def main():
                                    key="username_input")
     
     # 侧边栏 - 文件夹选择
-    st.sidebar.header("📁 上传数据文件夹")
+    st.sidebar.header("📁 病例文件夹路径")
     
     # 显示需要的文件类型
     with st.sidebar.expander("📋 文件夹中需要的文件", expanded=False):
@@ -419,119 +376,50 @@ def main():
         - `{model_name}_predict.json` 文件
         """)
     
-    # 文件上传功能 - 支持多种格式（仅允许一次）
-    uploaded_files = None
-    if not st.session_state.uploaded_once:
-        uploaded_files = st.sidebar.file_uploader(
-            "上传病例文件夹文件",
-            type=['jpg', 'jpeg', 'png', 'json'],
-            accept_multiple_files=True,
-            help="请选择包含图像和报告的文件夹中的所有文件",
-            key=f"file_uploader_{st.session_state.uploaded_files_key}"
-        )
-    
-    
-    # 处理上传的文件（仅首次）
-    if uploaded_files:
-        # 检查文件是否发生变化
-        current_file_names = sorted([f.name for f in uploaded_files])
-        
-        # 如果数据不存在或文件发生变化，重新加载数据
-        if (st.session_state.current_data is None or 
-            'uploaded_file_names' not in st.session_state or
-            st.session_state.uploaded_file_names != current_file_names):
-            
-            # 清理之前的临时文件
-            if st.session_state.current_data:
-                cleanup_temp_files(st.session_state.current_data)
-            
-            # 显示加载状态
-            with st.spinner('正在并加载文件...'):
-                # 将上传内容保存到服务器目录
-                saved_dir = save_uploaded_folder_to_server(uploaded_files)
-                # 从服务器目录读取规范化数据
-                st.session_state.current_data = load_folder_data(str(saved_dir))
-                st.session_state.saved_dir = str(saved_dir)
-                st.session_state.uploaded_file_names = current_file_names
-            
-            st.success("文件加载完成！")
-        
-        data = st.session_state.current_data
-        
-        # 检查是否包含必要的文件
-        has_necessary_files = data.get('report') is not None and data.get('image') is not None
-        
-        if has_necessary_files:
-            # 首次成功上传且校验通过：锁定上传控件
-            if not st.session_state.uploaded_once:
-                st.session_state.uploaded_once = True
-                st.rerun()
+    # 自动扫描内置 data 目录下的病例文件夹
+    data_root = Path(__file__).parent / "data"
+    case_dirs = []
+    if data_root.exists():
+        case_dirs = [p for p in sorted(data_root.iterdir()) if p.is_dir()]
 
-            # 侧边栏 - 模型选择
-            st.sidebar.header("🤖 模型选择")
-            
-            if data.get('models'):
-                # 创建可折叠的模型选择器
-                with st.sidebar.expander("选择模型", expanded=True):
-                    # 创建模型列表，包含状态信息
-                    model_options = []
-                    for model_name in data['models'].keys():
-                        status = "✅" if model_name in data.get('reviews', {}) else "❌"
-                        model_options.append(f"{status} {model_name}")
-                    
-                    selected_option = st.radio(
-                        "可用模型:",
-                        model_options,
-                        key="model_selection"
-                    )
-                    
-                    # 提取选中的模型名称
-                    selected_model = selected_option.split(" ", 1)[1] if " " in selected_option else selected_option
-                
-                # 主界面显示
-                display_main_interface(data, selected_model, username)
-            else:
-                st.error("未找到任何模型预测文件 (*_predict.json)")
-        else:
-            st.error("上传的文件不包含完整的病例数据，请确保包含图像文件和报告文件")
-            
-            # 显示调试信息
-            with st.expander("调试信息"):
-                st.write("找到的文件:", list(data.keys()))
-                if 'report' not in data:
-                    st.error("缺少 report.json 文件")
-                if 'image' not in data:
-                    st.error("缺少图像文件 (image_*.jpg 或 image_*.png)")
+    if case_dirs:
+        # 列出可选病例
+        case_labels = [p.name for p in case_dirs]
+        selected_label = st.sidebar.selectbox("选择病例:", case_labels, index=0)
+        selected_dir = data_root / selected_label
+        try:
+            data = load_folder_data(str(selected_dir))
+            st.session_state.current_data = data
+        except Exception as e:
+            st.error(f"❌ 加载数据时发生错误: {e}")
+            data = None
     else:
-        # 未选择文件：若已上传过，继续从服务器目录读取展示；否则提示上传
-        if st.session_state.uploaded_once and st.session_state.current_data:
-            data = st.session_state.current_data
-            has_necessary_files = data.get('report') is not None and data.get('image') is not None
-            if has_necessary_files:
-                st.sidebar.header("🤖 模型选择")
-                if data.get('models'):
-                    with st.sidebar.expander("选择模型", expanded=True):
-                        model_options = []
-                        for model_name in data['models'].keys():
-                            status = "✅" if model_name in data.get('reviews', {}) else "❌"
-                            model_options.append(f"{status} {model_name}")
-                        selected_option = st.radio(
-                            "可用模型:",
-                            model_options,
-                            key="model_selection_after_upload"
-                        )
-                        selected_model = selected_option.split(" ", 1)[1] if " " in selected_option else selected_option
-                    # 确保最新从服务器目录读取（避免内存态过期）
-                    if 'saved_dir' in st.session_state and st.session_state.saved_dir and os.path.isdir(st.session_state.saved_dir):
-                        data = load_folder_data(st.session_state.saved_dir)
-                        st.session_state.current_data = data
-                    display_main_interface(data, selected_model, username)
-                else:
-                    st.error("未找到任何模型预测文件 (*_predict.json)")
-            else:
-                st.error("上传的文件不包含完整的病例数据，请确保包含图像文件和报告文件")
+        st.error("在内置 data/ 目录下未找到任何病例文件夹。")
+        data = None
+
+    if data:
+        # 侧边栏 - 模型选择
+        st.sidebar.header("🤖 模型选择")
+        if data.get('models'):
+            with st.sidebar.expander("选择模型", expanded=True):
+                model_options = []
+                for model_name in data['models'].keys():
+                    # status = "✅" if model_name in data.get('reviews', {}) else "❌"
+                    # model_options.append(f"{status} {model_name}")
+                    model_options.append(f"{model_name}")
+                selected_option = st.radio(
+                    "可用模型:",
+                    model_options,
+                    key="model_selection"
+                )
+                selected_model = selected_option.split(" ", 1)[1] if " " in selected_option else selected_option
+
+            # 主界面显示
+            display_main_interface(data, selected_model, username)
         else:
-            st.info("💡 请上传病例文件夹文件开始评估")
+            st.error("未找到任何模型预测文件 (*_predict.json)")
+    else:
+        st.info("💡 请在 interface/interface_deploy/data/ 下放置病例文件夹后重试")
 
 def display_main_interface(data, selected_model, username):
     """显示主界面"""
@@ -713,7 +601,20 @@ def display_main_interface(data, selected_model, username):
             if current_review.get('username') == username and 'review_number' in current_review:
                 review_number = current_review.get('review_number', 0) + 1
         
-        filename = f"{selected_model}_review_{username}_{review_number}.json"
+        # 从report或case_name提取subject_id, study_id
+        subject_id = data.get('report', {}).get('subject_id') if data else None
+        study_id = data.get('report', {}).get('study_id') if data else None
+        case_name = data.get('case_name', '') if data else ''
+        if (not subject_id or not study_id) and case_name.startswith('subject_') and '_study_' in case_name:
+            try:
+                subject_id = case_name.split('subject_')[1].split('_study_')[0]
+                study_id = case_name.split('_study_')[1]
+            except Exception:
+                pass
+        subject_id = subject_id if subject_id is not None else 'unknown'
+        study_id = study_id if study_id is not None else 'unknown'
+
+        filename = f"subject_{subject_id}_study_{study_id}_{selected_model}_review_{username}_{review_number}.json"
         
         # 下载按钮
         st.download_button(
