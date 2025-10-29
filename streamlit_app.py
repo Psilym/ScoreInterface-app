@@ -471,27 +471,25 @@ def display_main_interface(data, selected_model, username):
             
             # Findings部分
             st.markdown("**Findings:**")
-            findings_container = st.container()
-            with findings_container:
-                st.text_area(
-                    "Findings内容",
-                    value=findings,
-                    height=140,
-                    key="original_findings",
-                    label_visibility="collapsed"
-                )
+            st.text_area(
+                "原始报告Findings",
+                value=findings,
+                height=140,
+                key="original_findings",
+                disabled=True,
+                label_visibility="collapsed"
+            )
             
             # Impression部分
             st.markdown("**Impression:**")
-            impression_container = st.container()
-            with impression_container:
-                st.text_area(
-                    "Impression内容",
-                    value=impression,
-                    height=140,
-                    key="original_impression",
-                    label_visibility="collapsed"
-                )
+            st.text_area(
+                "原始报告Impression",
+                value=impression,
+                height=140,
+                key="original_impression",
+                disabled=True,
+                label_visibility="collapsed"
+            )
         
         # 预测报告显示
         if selected_model in data.get('models', {}):
@@ -504,27 +502,25 @@ def display_main_interface(data, selected_model, username):
             
             # 模型Findings部分
             st.markdown("**Findings:**")
-            model_findings_container = st.container()
-            with model_findings_container:
-                st.text_area(
-                    "模型Findings内容",
-                    value=model_findings,
-                    height=140,
-                    key="model_findings",
-                    label_visibility="collapsed"
-                )
+            st.text_area(
+                "模型预测Findings",
+                value=model_findings,
+                height=140,
+                key="model_findings",
+                disabled=True,
+                label_visibility="collapsed"
+            )
             
             # 模型Impression部分
             st.markdown("**Impression:**")
-            model_impression_container = st.container()
-            with model_impression_container:
-                st.text_area(
-                    "模型Impression内容",
-                    value=model_impression,
-                    height=140,
-                    key="model_impression",
-                    label_visibility="collapsed"
-                )
+            st.text_area(
+                "模型预测Impression",
+                value=model_impression,
+                height=140,
+                key="model_impression",
+                disabled=True,
+                label_visibility="collapsed"
+            )
     
     with col3:
         # 用户名验证
