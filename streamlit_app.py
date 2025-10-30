@@ -184,7 +184,7 @@ def load_folder_data(folder_path):
         model_name = os.path.basename(predict_file).replace("_predict.json", "")
         with open(predict_file, 'r', encoding='utf-8') as f:
             data['models'][model_name] = json.load(f)
-        st.sidebar.success(f"✅ 已加载模型预测文件{model_name}")
+        st.sidebar.success(f"✅ 已加载模型预测文件{model_name}:{data['case_name']}")
     
     # 检查是否已有review文件（支持新的命名规则）
     data['reviews'] = {}
@@ -511,7 +511,7 @@ def display_main_interface(data, selected_model, username):
                     value=findings,
                     height=140,
                     key="original_findings",
-                    disabled=True,
+                    disabled=False,
                     label_visibility="collapsed"
                 )
                 
@@ -522,10 +522,10 @@ def display_main_interface(data, selected_model, username):
                     value=impression,
                     height=140,
                     key="original_impression",
-                    disabled=True,
+                    disabled=False,
                     label_visibility="collapsed"
                 )
-        
+                st.write(f"已更新原始报告{findings[:20]}...")
         # 预测报告显示
         if selected_model in data.get('models', {}):
             model_data = data['models'][selected_model]
@@ -541,7 +541,7 @@ def display_main_interface(data, selected_model, username):
                     value=model_findings,
                     height=140,
                     key="model_findings",
-                    disabled=True,
+                    disabled=False,
                     label_visibility="collapsed"
                 )
                 
@@ -552,7 +552,7 @@ def display_main_interface(data, selected_model, username):
                     value=model_impression,
                     height=140,
                     key="model_impression",
-                    disabled=True,
+                    disabled=False,
                     label_visibility="collapsed"
                 )
     
