@@ -6,6 +6,7 @@ from pathlib import Path
 from PIL import Image
 import glob
 import base64
+import tempfile
 
 # 页面配置
 st.set_page_config(
@@ -259,13 +260,24 @@ def create_data_from_uploaded_files(uploaded_files):
     """从上传的文件创建数据"""
     data = {}
     
+    # 创建临时目录来存储上传的文件
+    temp_dir = tempfile.mkdtemp()
+    
+    # 保存所有上传的文件到临时目录
+    saved_files = {}
+    for file in uploaded_files:
+        file_path = os.path.join(temp_dir, file.name)
+        with open(file_path, 'wb') as f:
+            f.write(file.getvalue())
+        saved_files[file.name] = file_path
+    
     # 读取原始报告
     report_data = None
-    for file in uploaded_files:
-        if file.name.endswith('report.json'):
+    for filename, file_path in saved_files.items():
+        if filename.endswith('report.json'):
             try:
-                content = file.getvalue().decode('utf-8')
-                report_data = json.loads(content)
+                with open(file_path, 'r', encoding='utf-8') as f:
+                    report_data = json.load(f)
                 data['report'] = report_data
                 break
             except Exception as e:
@@ -280,28 +292,31 @@ def create_data_from_uploaded_files(uploaded_files):
         data['case_name'] = "unknown_case"
     
     # 读取图像文件 - 选择image_{n}.jpg中n最小的文件
-    image_files = [f for f in uploaded_files if f.name.startswith('image_') and f.name.endswith(('.jpg', '.png'))]
+    image_files = {name: path for name, path in saved_files.items() 
+                  if name.startswith('image_') and name.endswith(('.jpg', '.png'))}
+    
     if image_files:
         # 提取文件名中的数字并排序，选择n最小的
         def extract_number(filename):
             import re
             match = re.search(r'image_(\d+)\.', filename)
             return int(match.group(1)) if match else float('inf')
-        image_files.sort(key=lambda f: extract_number(f.name))
-        data['image_bytes'] = image_files[0].getvalue()
-        data['image_name'] = image_files[0].name
+        
+        sorted_images = sorted(image_files.items(), key=lambda x: extract_number(x[0]))
+        data['image'] = sorted_images[0][1]  # 取n最小的图像文件路径
+        data['temp_dir'] = temp_dir  # 保存临时目录路径以便后续清理
     
     # 读取所有模型预测文件
     data['models'] = {}
     
-    for file in uploaded_files:
-        if file.name.endswith('_predict.json'):
-            model_name = file.name.replace('_predict.json', '')
+    for filename, file_path in saved_files.items():
+        if filename.endswith('_predict.json'):
+            model_name = filename.replace('_predict.json', '')
             try:
-                content = file.getvalue().decode('utf-8')
-                data['models'][model_name] = json.loads(content)
+                with open(file_path, 'r', encoding='utf-8') as f:
+                    data['models'][model_name] = json.load(f)
             except Exception as e:
-                st.error(f"读取{file.name}失败: {e}")
+                st.error(f"读取{filename}失败: {e}")
     
     # 检查是否已有review文件（支持新的命名规则）
     data['reviews'] = {}
@@ -309,22 +324,28 @@ def create_data_from_uploaded_files(uploaded_files):
     
     for model_name in data['models'].keys():
         # 查找所有相关的review文件
-        review_files = [f for f in uploaded_files if f.name.startswith(f"{model_name}_review")]
-        data['review_files'][model_name] = [f.name for f in review_files]
-        # 如果有review文件，加载最新的一个（按文件名排序）
+        review_files = {name: path for name, path in saved_files.items() 
+                       if name.startswith(f"{model_name}_review")}
+        data['review_files'][model_name] = list(review_files.values())
+        
+        # 如果有review文件，加载最新的一个
         if review_files:
-            review_files.sort(key=lambda f: f.name)
+            # 按文件名排序，取最新的（假设文件名包含时间戳或序号）
+            latest_review_path = sorted(review_files.values())[-1]
             try:
-                content = review_files[-1].getvalue().decode('utf-8')
-                data['reviews'][model_name] = json.loads(content)
+                with open(latest_review_path, 'r', encoding='utf-8') as f:
+                    data['reviews'][model_name] = json.load(f)
             except Exception as e:
                 st.error(f"读取review文件失败: {e}")
     
     return data
 
-def cleanup_temp_files(data):
-    """兼容函数（已不使用临时目录）"""
-    return
+def clear_uploaded_session():
+    """清空当前上传数据及相关会话状态"""
+    st.session_state.uploaded_file_ready = True
+    st.session_state.current_data = None
+    st.session_state.last_selected_case = None
+    st.cache_data.clear()
 
 def main():
     st.markdown('<div class="main-header">报告评估系统</div>', unsafe_allow_html=True)
@@ -334,10 +355,6 @@ def main():
         st.session_state.current_data = None
     if 'last_selected_case' not in st.session_state:
         st.session_state.last_selected_case = None
-    if 'uploaded_file_names' not in st.session_state:
-        st.session_state.uploaded_file_names = None
-    if 'model_key_seed' not in st.session_state:
-        st.session_state.model_key_seed = 0
     
     # 用户名输入
     st.sidebar.header("👤 用户信息")
@@ -357,34 +374,23 @@ def main():
         **模型预测文件 (至少一个):**
         - `{model_name}_predict.json` 文件
         """)
-    
     # 上传组件：请选择包含report.json、*_predict.json、image_*.jpg/png的所有文件
     uploaded_files = st.sidebar.file_uploader(
         "上传病例文件夹文件",
         type=['jpg', 'jpeg', 'png', 'json'],
         accept_multiple_files=True,
-        help="请选择该病例文件夹中的所有文件（图像、报告、预测结果）"
+        help="请选择该病例文件夹中的所有文件（图像、报告、预测结果）",
+        on_change = clear_uploaded_session
     )
+    
+    # 清空上传数据按钮
+    st.sidebar.button("🧹 清空上传数据", on_click=clear_uploaded_session)
 
-    # 处理上传（检测重新上传并清空旧数据）
+    # 处理上传
     if uploaded_files:
         try:
-            # 生成本次上传的指纹（文件名+大小）用于判定是否为新一批数据
-            current_fingerprints = sorted([
-                f"{f.name}:{len(f.getvalue())}"
-                for f in uploaded_files
-            ])
-
-            # 如与上一批不同，则清空旧数据与缓存
-            if st.session_state.uploaded_file_names != current_fingerprints:
-                st.cache_data.clear()
-                st.session_state.current_data = None
-                st.session_state.last_selected_case = None
-                st.session_state.model_key_seed += 1  # 重置模型选择控件
-
             data = create_data_from_uploaded_files(uploaded_files)
             st.session_state.current_data = data
-            st.session_state.uploaded_file_names = current_fingerprints
             st.sidebar.success("✅ 已加载上传的病例数据")
         except Exception as e:
             st.error(f"❌ 解析上传数据失败: {e}")
@@ -405,7 +411,7 @@ def main():
                 selected_option = st.radio(
                     "可用模型:",
                     model_options,
-                    key=f"model_selection_{st.session_state.model_key_seed}"
+                    key="model_selection"
                 )
                 selected_model = selected_option.split(" ", 1)[1] if " " in selected_option else selected_option
 
@@ -440,17 +446,21 @@ def display_main_interface(data, selected_model, username):
     
     with col1:
         # 图像显示
-        with st.expander("🖼️ 医学图像", expanded=True):
-            try:
-                if 'image' in data and os.path.exists(data['image']):
+        if 'image' in data and os.path.exists(data['image']):
+            with st.expander("🖼️ 医学图像", expanded=True):
+                try:
+                    # 使用PIL打开图像以确保兼容性
                     image = Image.open(data['image'])
                     st.image(image, caption="胸部X光片", use_container_width=True)
-                elif 'image_bytes' in data:
-                    st.image(data['image_bytes'], caption="胸部X光片", use_container_width=True)
-                else:
-                    st.warning("未找到图像文件")
-            except Exception as e:
-                st.error(f"图像加载失败: {e}")
+                except Exception as e:
+                    st.error(f"图像加载失败: {e}")
+                    # 显示调试信息
+                    st.write(f"图像路径: {data['image']}")
+                    st.write(f"文件存在: {os.path.exists(data['image'])}")
+        else:
+            st.warning("未找到图像文件")
+            if 'image' in data:
+                st.write(f"图像路径: {data['image']}")
     
     with col2:
         # 原始报告显示
