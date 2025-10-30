@@ -175,7 +175,7 @@ def load_folder_data(folder_path):
         
         image_files.sort(key=extract_number)
         data['image'] = image_files[0]  # 取n最小的图像文件
-    
+        st.sidebar.success(f"✅ 已加载图像")
     # 读取所有模型预测文件
     predict_files = glob.glob(os.path.join(folder_path, "*_predict.json"))
     data['models'] = {}
@@ -184,6 +184,7 @@ def load_folder_data(folder_path):
         model_name = os.path.basename(predict_file).replace("_predict.json", "")
         with open(predict_file, 'r', encoding='utf-8') as f:
             data['models'][model_name] = json.load(f)
+        st.sidebar.success(f"✅ 已加载模型预测文件{model_name}")
     
     # 检查是否已有review文件（支持新的命名规则）
     data['reviews'] = {}
@@ -392,6 +393,7 @@ def main():
         col1, col2 = st.sidebar.columns([3, 1])
         with col1:
             selected_label = st.selectbox("选择病例:", case_labels, index=0)
+        
         with col2:
             if st.button("🔄", help="刷新数据"):
                 st.cache_data.clear()
