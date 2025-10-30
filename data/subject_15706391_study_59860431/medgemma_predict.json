@@ -1,9 +1,0 @@
-{
-  "folder_name": "subject_15706391_study_59860431",
-  "image_file": "/home/midea/Work/CXRSentenceSplitter/data/reader_study/selected_cases100/high_quality_reports_100_with_images/subject_15706391_study_59860431/image_1.jpg",
-  "findings": "*   心脏大小在正常范围内。\n*   纵隔轮廓无异常。\n*   气管位于中线。\n*   双侧肺野清晰，无实变、肿块或显著积液的证据。\n*   可见的骨骼结构（肋骨、锁骨、脊柱）完整。\n*   无气胸的证据。",
-  "impression": "*   胸部X光片正常。",
-  "full_response": "**检查结果：**\n\n*   心脏大小在正常范围内。\n*   纵隔轮廓无异常。\n*   气管位于中线。\n*   双侧肺野清晰，无实变、肿块或显著积液的证据。\n*   可见的骨骼结构（肋骨、锁骨、脊柱）完整。\n*   无气胸的证据。\n\n**印象：**\n\n*   胸部X光片正常。",
-  "model": "MedGemma",
-  "timestamp": "/home/midea/Work/CXRSentenceSplitter/scripts"
-}

@@ -1,9 +1,0 @@
-{
-  "folder_name": "subject_14929191_study_55759109",
-  "image_file": "/home/midea/Work/CXRSentenceSplitter/data/reader_study/selected_cases100/high_quality_reports_100_with_images/subject_14929191_study_55759109/image_1.jpg",
-  "findings": "*   **心脏增大（Cardiomegaly）：** 心脏轮廓显得增大。\n*   **肺水肿（Pulmonary Edema）：** 双侧存在间质性和肺泡性不透明阴影，主要集中在下肺野，符合肺水肿的表现。可见 Kerley B 线。\n*   **胸腔积液（Pleural Effusions）：** 存在双侧少量胸腔积液，右侧更为明显。\n*   **肺不张（Atelectasis）：** 可能存在一定程度的双侧基底肺不张，这可能是不透明阴影的原因之一。\n*   **纵隔增宽（Mediastinal Widening）：** 纵隔显得略微增宽，可能由于血管充血或其他原因所致。",
-  "impression": "**s:**\n\n*   **心力衰竭（CHF）：** 心脏增大、肺水肿（间质性和肺泡性）以及胸腔积液强烈提示急性或慢性心力衰竭。\n*   **容量超负荷：** 所见结果表明存在显著的容量超负荷。\n\n**免责声明：** 本报告仅基于提供的影像资料，仅供信息参考。明确诊断需要结合临床病史、体格检查以及可能的其他检查结果进行综合判断。",
-  "full_response": "**发现：**\n\n*   **心脏增大（Cardiomegaly）：** 心脏轮廓显得增大。\n*   **肺水肿（Pulmonary Edema）：** 双侧间质性和肺泡性不透明影，主要位于下肺野，符合肺水肿的表现。可见 Kerley B 线。\n*   **胸腔积液（Pleural Effusions）：** 存在双侧少量胸腔积液，右侧更为明显。\n*   **肺不张（Atelectasis）：** 可能存在一定程度的双侧基底肺不张，对不透明影的形成有贡献。\n*   **纵隔增宽（Mediastinal Widening）：** 纵隔显得略微增宽，可能由于血管充血或其他原因所致。\n\n**印象：**\n\n*   **心力衰竭（Congestive Heart Failure, CHF）：** 心脏增大、肺水肿（间质性和肺泡性）以及胸腔积液的组合强烈提示急性或慢性心力衰竭。\n*   **容量超负荷（Volume Overload）：** 所有发现均提示显著的容量超负荷。\n\n**免责声明：** 本报告仅基于提供的影像资料，仅供信息参考。明确诊断需要结合临床病史、体格检查以及可能的其他检查结果进行综合判断。",
-  "model": "MedGemma",
-  "timestamp": "/home/midea/Work/CXRSentenceSplitter/scripts"
-}

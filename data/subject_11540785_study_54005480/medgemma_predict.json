@@ -1,9 +1,0 @@
-{
-  "folder_name": "subject_11540785_study_54005480",
-  "image_file": "/home/midea/Work/CXRSentenceSplitter/data/reader_study/selected_cases100/high_quality_reports_100_with_images/subject_11540785_study_54005480/image_1.jpg",
-  "findings": "*   **心脏增大（Cardiomegaly）：** 心脏轮廓显得增大。\n*   **肺水肿（Pulmonary Edema）：** 双侧间质和肺泡出现混浊，主要集中在下肺野，符合肺水肿的表现。可见 Kerley B 线。\n*   **胸腔积液（Pleural Effusions）：** 存在双侧小到中等量的胸腔积液，使肋膈角变钝。\n*   **肺不张（Atelectasis）：** 可能存在一定程度的基底肺不张，尤其是右侧，这可能对混浊区域的形成有所贡献。\n*   **纵隔增宽（Mediastinal Widening）：** 纵隔显得有些增宽，可能由于血管充血或淋巴结肿大所致，但结合其他发现，血管充血的可能性更大。\n*   **无局灶性实变（No focal consolidation）：** 未明确识别出提示肺炎的局灶性实变区域。",
-  "impression": "**充血性心力衰竭（CHF）：** 心脏增大、肺水肿（包括间质性和肺泡性改变，Kerley B线）以及双侧胸腔积液强烈提示急性或失代偿性充血性心力衰竭。",
-  "full_response": "**发现：**\n\n*   **心脏增大（Cardiomegaly）：** 心脏轮廓显得增大。\n*   **肺水肿（Pulmonary Edema）：** 双侧间质性和肺泡性不透明影，主要位于下肺野，符合肺水肿的表现。可见 Kerley B 线。\n*   **胸腔积液（Pleural Effusions）：** 存在双侧少量至中等量胸腔积液，钝化了肋膈角。\n*   **肺不张（Atelectasis）：** 可能存在一定程度的基底肺不张，尤其是右侧，这可能对不透明影的形成有所贡献。\n*   **纵隔增宽（Mediastinal Widening）：** 纵隔显得有些增宽，可能由于血管充血或淋巴结肿大所致，但结合其他发现，血管充血的可能性更大。\n*   **无局灶性实变（No focal consolidation）：** 未明确识别出提示肺炎的局灶性实变区域。\n\n**印象：**\n\n*   **心力衰竭（Congestive Heart Failure, CHF）：** 心脏增大、肺水肿（包括间质性和肺泡性模式、Kerley B 线）以及双侧胸腔积液的组合强烈提示急性或失代偿性心力衰竭。",
-  "model": "MedGemma",
-  "timestamp": "/home/midea/Work/CXRSentenceSplitter/scripts"
-}

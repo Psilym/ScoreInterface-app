@@ -1,9 +1,0 @@
-{
-  "folder_name": "subject_15624189_study_51323690",
-  "image_file": "/home/midea/Work/CXRSentenceSplitter/data/reader_study/selected_cases100/high_quality_reports_100_with_images/subject_15624189_study_51323690/image_1.jpg",
-  "findings": "- **心脏增大（Cardiomegaly）**：心影增大，心脏直径大于胸腔直径的一半。\n- **胸腔积液（Pleural Effusion）**：左侧可见胸腔积液，左侧膈肌变钝，胸腔积液征象（胸膜腔内液体平面）。\n- **胸膜斑（Pleural Plaques）**：双侧可见多个胸膜斑，主要位于后肺野。\n- **肋骨（Ribs）**：肋骨轮廓清晰，无骨折或脱位迹象。\n- **胸壁（Chest Wall）**：胸壁对称，无肿块或畸形迹象。\n- **气道和纵隔（Airway and Mediastinum）**：气道位于中央，纵隔无移位。\n- **肺实质（Lung Parenchyma）**：肺实质无明显体积损失或实变。",
-  "impression": "- **心脏肥大伴左侧胸腔积液**\n- **多发性胸膜斑块**\n- **无急性呼吸窘迫综合征或肿块病变**\n- **无肺炎或其他肺部疾病证据**\n- **鉴于心脏肥大，考虑心源性胸腔积液**\n- **建议进一步评估潜在心脏疾病**",
-  "full_response": "**检查结果：**\n- **心脏增大（Cardiomegaly）**：心脏轮廓增大，心脏直径大于胸腔直径的一半。\n- **胸腔积液（Pleural Effusion）**：左侧有胸腔积液，左侧膈肌边缘变钝，可见胸腔积液征象（胸膜腔内液体平面）。\n- **胸膜斑（Pleural Plaques）**：双侧可见多个胸膜斑，主要位于后肺野。\n- **肋骨（Ribs）**：肋骨轮廓清晰，无骨折或脱位迹象。\n- **胸壁（Chest Wall）**：胸壁对称，无肿块或畸形迹象。\n- **气道和纵隔（Airway and Mediastinum）**：气道位于中央，纵隔无移位。\n- **肺实质（Lung Parenchyma）**：肺实质无明显体积损失或实变。\n\n**印象：**\n- **心脏增大伴左侧胸腔积液（Cardiomegaly with Left Pleural Effusion）**\n- **多发胸膜斑（Multiple Pleural Plaques）**\n- **无急性呼吸窘迫综合征或肿块病变（No Acute Respiratory Distress Syndrome or Mass Lesion）**\n- **无肺炎或其他肺部疾病证据（No Evidence of Pneumonia or Other Lung Disease）**\n- **鉴于心脏增大，考虑心源性胸腔积液（Consider Cardiogenic Pleural Effusion Given Cardiomegaly）**\n- **建议进一步评估潜在心脏疾病（Further Evaluation for Underlying Cardiac Disease Recommended）**",
-  "model": "GLM4v_aimp",
-  "timestamp": "/home/midea/Work/CXRSentenceSplitter"
-}

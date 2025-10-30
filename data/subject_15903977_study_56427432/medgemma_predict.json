@@ -1,9 +1,0 @@
-{
-  "folder_name": "subject_15903977_study_56427432",
-  "image_file": "/home/midea/Work/CXRSentenceSplitter/data/reader_study/selected_cases100/high_quality_reports_100_with_images/subject_15903977_study_56427432/image_1.jpg",
-  "findings": "*   **心脏增大（Cardiomegaly）：** 心脏轮廓显得增大。\n*   **肺水肿（Pulmonary Edema）：** 双肺野内可见间质性条纹增多和模糊，尤其是在肺门周围区域，符合肺水肿的表现。\n*   **胸腔积液（Pleural Effusions）：** 存在双侧小到中等量的胸腔积液，表现为肋膈角变钝。\n*   **Kerley B 线（Kerley B Lines）：** 肺部边缘，尤其是肺底，可见短的水平线，提示间质性水肿（Kerley B 线）。\n*   **纵隔增宽（Mediastinal Widening）：** 纵隔显得有些增宽，可能由于血管充血或淋巴结肿大所致。\n*   **肺不张（Atelectasis）：** 可能存在一定程度的基底肺不张，尤其是在右侧。",
-  "impression": "**s:**\n\n*   **心力衰竭（CHF）：** 心脏增大、肺水肿（间质性标记、Kerley B线、肺门周围模糊）以及双侧胸腔积液强烈提示急性或慢性心力衰竭。\n*   **容量超负荷：** 所见结果与液体超负荷一致。\n\n**免责声明：** 本报告仅基于提供的影像资料，仅供信息参考。明确诊断需要结合临床病史、体格检查以及可能的其他诊断测试。",
-  "full_response": "**发现：**\n\n*   **心脏增大（Cardiomegaly）：** 心脏轮廓显得增大。\n*   **肺水肿（Pulmonary Edema）：** 双肺野，尤其是肺门周围区域，可见间质性条纹增多和模糊，符合肺水肿的表现。\n*   **胸腔积液（Pleural Effusions）：** 存在双侧小到中等量的胸腔积液，表现为肋膈角变钝。\n*   **Kerley B 线：** 肺周边，尤其是在肺底，可见短的水平线，提示间质性水肿（Kerley B 线）。\n*   **纵隔增宽（Mediastinal Widening）：** 纵隔显得有些增宽，可能由于血管充血或淋巴结肿大所致。\n*   **肺不张（Atelectasis）：** 可能存在一定程度的基底肺不张，尤其在右侧。\n\n**印象：**\n\n*   **心力衰竭（Congestive Heart Failure, CHF）：** 心脏增大、肺水肿（间质性条纹、Kerley B 线、肺门模糊）以及双侧胸腔积液的组合强烈提示急性或慢性心力衰竭。\n*   **容量超负荷（Volume Overload）：** 所有发现均与液体超负荷一致。\n\n**免责声明：** 本报告仅基于提供的影像资料，仅供信息参考。明确诊断需要结合临床病史、体格检查以及可能的其他诊断测试结果进行综合分析。",
-  "model": "MedGemma",
-  "timestamp": "/home/midea/Work/CXRSentenceSplitter/scripts"
-}

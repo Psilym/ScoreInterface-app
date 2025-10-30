@@ -1,9 +1,0 @@
-{
-  "folder_name": "subject_19344311_study_50165498",
-  "image_file": "/home/midea/Work/CXRSentenceSplitter/data/reader_study/selected_cases100/high_quality_reports_100_with_images/subject_19344311_study_50165498/image_1.jpg",
-  "findings": "*   **胸部：** 双侧肺部清晰，未见实变、积液或气胸的证据。心脏轮廓大小和形态正常。纵隔结构无异常。\n*   **骨骼：** 右侧锁骨远端骨折，可见移位。其余可见的骨骼结构完整。\n*   **软组织：** 右侧锁骨上区可见皮下气肿。\n*   **其他：** 存在电子设备（可能是心率监测器），导联线覆盖在胸部。",
-  "impression": "1. **右侧锁骨远端骨折。**\n2. **右侧锁骨上区皮下气肿**，可能与锁骨骨折相关。",
-  "full_response": "**检查结果：**\n\n*   **胸部：** 双侧肺部清晰，无实变、积液或气胸的证据。心脏轮廓大小和形态正常。纵隔结构无异常。\n*   **骨骼：** 右侧锁骨远端骨折，骨折移位。其余可见的骨骼结构完整。\n*   **软组织：** 右侧锁骨上区可见皮下气肿。\n*   **其他：** 存在电子设备（可能是心率监测器），导联线覆盖胸部。\n\n**诊断印象：**\n\n1.  **右侧锁骨远端骨折，移位。**\n2.  **右侧锁骨上区皮下气肿，可能与锁骨骨折相关。**",
-  "model": "MedGemma",
-  "timestamp": "/home/midea/Work/CXRSentenceSplitter/scripts"
-}

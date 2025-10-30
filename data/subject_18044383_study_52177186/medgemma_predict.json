@@ -1,9 +1,0 @@
-{
-  "folder_name": "subject_18044383_study_52177186",
-  "image_file": "/home/midea/Work/CXRSentenceSplitter/data/reader_study/selected_cases100/high_quality_reports_100_with_images/subject_18044383_study_52177186/image_1.jpg",
-  "findings": "*   **心脏轮廓（Cardiac Silhouette）:** 心脏大小在正常范围内。\n*   **纵隔（Mediastinum）:** 纵隔轮廓无异常。\n*   **肺部（Lungs）:** 右上肺可见一个较大、边界清晰的密度增高影，符合肿块或实变的表现。左肺未见异常。\n*   **胸膜（Pleura）:** 未见胸腔积液或气胸。\n*   **骨骼（Bones）:** 可见的骨性结构完整。\n*   **其他（Other）:** 上胸部可见心脏监测装置。",
-  "impression": "**右上叶肿块/实变：** 右上叶存在显著的不透明区域，需要进一步检查以确定其性质（如恶性肿瘤、感染、炎症等）。建议进行进一步影像学检查（CT扫描）以及可能的活检。",
-  "full_response": "**检查结果：**\n\n*   **心脏轮廓：** 心脏大小在正常范围内。\n*   **纵隔：** 纵隔轮廓无异常。\n*   **肺部：** 右上肺存在一个大而清晰的不透明影，符合肿块或实变的表现。左肺清晰。\n*   **胸膜：** 未发现胸腔积液或气胸。\n*   **骨骼：** 可见的骨性结构完整。\n*   **其他：** 上胸部可见心脏监测装置。\n\n**印象：**\n\n*   **右上肺肿块/实变：** 右上肺存在显著的不透明影，需进一步检查以确定其性质（如恶性肿瘤、感染、炎症等）。建议进行进一步影像学检查（CT扫描）和可能的活检。",
-  "model": "MedGemma",
-  "timestamp": "/home/midea/Work/CXRSentenceSplitter/scripts"
-}

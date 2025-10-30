@@ -1,9 +1,0 @@
-{
-  "folder_name": "subject_14677859_study_56202489",
-  "image_file": "/home/midea/Work/CXRSentenceSplitter/data/reader_study/selected_cases100/high_quality_reports_100_with_images/subject_14677859_study_56202489/image_1.jpg",
-  "findings": "*   **心脏：** 心脏轮廓增大，提示心肌肥大（心大）。\n*   **肺部：** 存在肺血管淤血的证据，表现为肺血管模糊和支气管周围袖套征。\n*   **胸腔积液：** 双侧胸腔积液存在，积液量中等，右侧积液较多。\n*   **其他：** 患者为中线胸骨切开术后，胸骨钢丝完整。可见心脏瓣膜置换装置。",
-  "impression": "**心力衰竭：** 心脏增大、肺血管充血以及双侧胸腔积液的高度提示心力衰竭。",
-  "full_response": "**检查结果：**\n\n*   **心脏：** 心脏轮廓增大，提示心肌肥大（心大）。\n*   **肺部：** 存在肺血管淤血的证据，表现为肺血管模糊和支气管周围袖套征。\n*   **胸腔积液：** 双侧胸腔积液存在，积液量中等，右侧积液较多。\n*   **其他：** 患者为中线胸骨切开术后，胸骨钢丝完整。可见心脏瓣膜置换装置。\n\n**印象：**\n\n*   **心力衰竭：** 心肌肥大、肺血管淤血以及双侧胸腔积液的组合高度提示心力衰竭。",
-  "model": "MedGemma",
-  "timestamp": "/home/midea/Work/CXRSentenceSplitter/scripts"
-}
