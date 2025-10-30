@@ -510,7 +510,7 @@ def display_main_interface(data, selected_model, username):
                     "原始报告Findings",
                     value=findings,
                     height=140,
-                    key="original_findings",
+                    # key="original_findings",
                     disabled=False,
                     label_visibility="collapsed"
                 )
@@ -521,7 +521,7 @@ def display_main_interface(data, selected_model, username):
                     "原始报告Impression",
                     value=impression,
                     height=140,
-                    key="original_impression",
+                    # key="original_impression",
                     disabled=False,
                     label_visibility="collapsed"
                 )
