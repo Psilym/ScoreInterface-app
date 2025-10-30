@@ -6,7 +6,6 @@ from pathlib import Path
 from PIL import Image
 import glob
 import base64
-import tempfile
 
 # 页面配置
 st.set_page_config(
@@ -260,24 +259,13 @@ def create_data_from_uploaded_files(uploaded_files):
     """从上传的文件创建数据"""
     data = {}
     
-    # 创建临时目录来存储上传的文件
-    temp_dir = tempfile.mkdtemp()
-    
-    # 保存所有上传的文件到临时目录
-    saved_files = {}
-    for file in uploaded_files:
-        file_path = os.path.join(temp_dir, file.name)
-        with open(file_path, 'wb') as f:
-            f.write(file.getvalue())
-        saved_files[file.name] = file_path
-    
     # 读取原始报告
     report_data = None
-    for filename, file_path in saved_files.items():
-        if filename.endswith('report.json'):
+    for file in uploaded_files:
+        if file.name.endswith('report.json'):
             try:
-                with open(file_path, 'r', encoding='utf-8') as f:
-                    report_data = json.load(f)
+                content = file.getvalue().decode('utf-8')
+                report_data = json.loads(content)
                 data['report'] = report_data
                 break
             except Exception as e:
@@ -292,31 +280,28 @@ def create_data_from_uploaded_files(uploaded_files):
         data['case_name'] = "unknown_case"
     
     # 读取图像文件 - 选择image_{n}.jpg中n最小的文件
-    image_files = {name: path for name, path in saved_files.items() 
-                  if name.startswith('image_') and name.endswith(('.jpg', '.png'))}
-    
+    image_files = [f for f in uploaded_files if f.name.startswith('image_') and f.name.endswith(('.jpg', '.png'))]
     if image_files:
         # 提取文件名中的数字并排序，选择n最小的
         def extract_number(filename):
             import re
             match = re.search(r'image_(\d+)\.', filename)
             return int(match.group(1)) if match else float('inf')
-        
-        sorted_images = sorted(image_files.items(), key=lambda x: extract_number(x[0]))
-        data['image'] = sorted_images[0][1]  # 取n最小的图像文件路径
-        data['temp_dir'] = temp_dir  # 保存临时目录路径以便后续清理
+        image_files.sort(key=lambda f: extract_number(f.name))
+        data['image_bytes'] = image_files[0].getvalue()
+        data['image_name'] = image_files[0].name
     
     # 读取所有模型预测文件
     data['models'] = {}
     
-    for filename, file_path in saved_files.items():
-        if filename.endswith('_predict.json'):
-            model_name = filename.replace('_predict.json', '')
+    for file in uploaded_files:
+        if file.name.endswith('_predict.json'):
+            model_name = file.name.replace('_predict.json', '')
             try:
-                with open(file_path, 'r', encoding='utf-8') as f:
-                    data['models'][model_name] = json.load(f)
+                content = file.getvalue().decode('utf-8')
+                data['models'][model_name] = json.loads(content)
             except Exception as e:
-                st.error(f"读取{filename}失败: {e}")
+                st.error(f"读取{file.name}失败: {e}")
     
     # 检查是否已有review文件（支持新的命名规则）
     data['reviews'] = {}
@@ -324,30 +309,22 @@ def create_data_from_uploaded_files(uploaded_files):
     
     for model_name in data['models'].keys():
         # 查找所有相关的review文件
-        review_files = {name: path for name, path in saved_files.items() 
-                       if name.startswith(f"{model_name}_review")}
-        data['review_files'][model_name] = list(review_files.values())
-        
-        # 如果有review文件，加载最新的一个
+        review_files = [f for f in uploaded_files if f.name.startswith(f"{model_name}_review")]
+        data['review_files'][model_name] = [f.name for f in review_files]
+        # 如果有review文件，加载最新的一个（按文件名排序）
         if review_files:
-            # 按文件名排序，取最新的（假设文件名包含时间戳或序号）
-            latest_review_path = sorted(review_files.values())[-1]
+            review_files.sort(key=lambda f: f.name)
             try:
-                with open(latest_review_path, 'r', encoding='utf-8') as f:
-                    data['reviews'][model_name] = json.load(f)
+                content = review_files[-1].getvalue().decode('utf-8')
+                data['reviews'][model_name] = json.loads(content)
             except Exception as e:
                 st.error(f"读取review文件失败: {e}")
     
     return data
 
 def cleanup_temp_files(data):
-    """清理临时文件"""
-    if 'temp_dir' in data and os.path.exists(data['temp_dir']):
-        import shutil
-        try:
-            shutil.rmtree(data['temp_dir'])
-        except:
-            pass
+    """兼容函数（已不使用临时目录）"""
+    return
 
 def main():
     st.markdown('<div class="main-header">报告评估系统</div>', unsafe_allow_html=True)
@@ -363,8 +340,8 @@ def main():
     username = st.sidebar.text_input("用户名:", placeholder="请输入您的用户名", 
                                    key="username_input")
     
-    # 侧边栏 - 文件夹选择
-    st.sidebar.header("📁 病例文件夹路径")
+    # 侧边栏 - 上传文件夹（包含report、预测结果、图像）
+    st.sidebar.header("📁 上传数据文件夹")
     
     # 显示需要的文件类型
     with st.sidebar.expander("📋 文件夹中需要的文件", expanded=False):
@@ -377,59 +354,25 @@ def main():
         - `{model_name}_predict.json` 文件
         """)
     
-    # 自动扫描内置 data 目录下的病例文件夹
-    data_root = Path(__file__).parent / "data"
-    case_dirs = []
-    if data_root.exists():
-        case_dirs = [p for p in sorted(data_root.iterdir()) if p.is_dir()]
+    # 上传组件：请选择包含report.json、*_predict.json、image_*.jpg/png的所有文件
+    uploaded_files = st.sidebar.file_uploader(
+        "上传病例文件夹文件",
+        type=['jpg', 'jpeg', 'png', 'json'],
+        accept_multiple_files=True,
+        help="请选择该病例文件夹中的所有文件（图像、报告、预测结果）"
+    )
 
-    if case_dirs:
-        # 列出可选病例
-        case_labels = [p.name for p in case_dirs]
-        
-        # 添加刷新按钮
-        col1, col2 = st.sidebar.columns([3, 1])
-        with col1:
-            selected_label = st.selectbox("选择病例:", case_labels, index=0)
-        
-        with col2:
-            if st.button("🔄", help="刷新数据"):
-                st.cache_data.clear()
-                if 'current_data' in st.session_state:
-                    del st.session_state.current_data
-                if 'last_selected_case' in st.session_state:
-                    del st.session_state.last_selected_case
-                st.rerun()
-        
-        # 检查是否切换了病例
-        current_selection = f"{selected_label}"
-        if (st.session_state.last_selected_case != current_selection or 
-            st.session_state.current_data is None):
-            
-            # 清除缓存数据
-            st.cache_data.clear()
-            
-            try:
-                selected_dir = data_root / selected_label
-                data = load_folder_data(str(selected_dir))
-                st.session_state.current_data = data
-                st.session_state.last_selected_case = current_selection
-                
-                # 显示成功消息
-                st.sidebar.success(f"✅ 已加载病例: {selected_label}")
-                
-            except Exception as e:
-                st.error(f"❌ 加载数据时发生错误: {e}")
-                data = None
-        else:
-            # 使用缓存的数据
-            data = st.session_state.current_data
+    # 处理上传
+    if uploaded_files:
+        try:
+            data = create_data_from_uploaded_files(uploaded_files)
+            st.session_state.current_data = data
+            st.sidebar.success("✅ 已加载上传的病例数据")
+        except Exception as e:
+            st.error(f"❌ 解析上传数据失败: {e}")
+            data = None
     else:
-        st.error("在内置 data/ 目录下未找到任何病例文件夹。")
-        data = None
-
-    # 清除 load_folder_data 的缓存装饰器，或者修改为：
-    # @st.cache_data(ttl=60)  # 设置较短的缓存时间
+        data = st.session_state.current_data
 
     if data:
         # 侧边栏 - 模型选择
@@ -479,21 +422,17 @@ def display_main_interface(data, selected_model, username):
     
     with col1:
         # 图像显示
-        if 'image' in data and os.path.exists(data['image']):
-            with st.expander("🖼️ 医学图像", expanded=True):
-                try:
-                    # 使用PIL打开图像以确保兼容性
+        with st.expander("🖼️ 医学图像", expanded=True):
+            try:
+                if 'image' in data and os.path.exists(data['image']):
                     image = Image.open(data['image'])
                     st.image(image, caption="胸部X光片", use_container_width=True)
-                except Exception as e:
-                    st.error(f"图像加载失败: {e}")
-                    # 显示调试信息
-                    st.write(f"图像路径: {data['image']}")
-                    st.write(f"文件存在: {os.path.exists(data['image'])}")
-        else:
-            st.warning("未找到图像文件")
-            if 'image' in data:
-                st.write(f"图像路径: {data['image']}")
+                elif 'image_bytes' in data:
+                    st.image(data['image_bytes'], caption="胸部X光片", use_container_width=True)
+                else:
+                    st.warning("未找到图像文件")
+            except Exception as e:
+                st.error(f"图像加载失败: {e}")
     
     with col2:
         # 原始报告显示
