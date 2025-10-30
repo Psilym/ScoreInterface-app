@@ -347,6 +347,20 @@ def clear_uploaded_session():
     st.session_state.last_selected_case = None
     st.cache_data.clear()
 
+def handle_file_upload():
+    """文件上传回调 - 清空之前的所有文件，保留当前上传的所有文件"""
+    # 获取当前上传的文件列表
+    current_uploaded_files = st.session_state.file_uploader_widget
+    Nfile = len(st.session_state.current_files)
+    current_uploaded_files = current_uploaded_files[Nfile:]
+    if current_uploaded_files:
+        # 清空之前存储的文件，用当前上传的所有文件替换
+        st.session_state.current_files = current_uploaded_files
+        st.success(f"已上传 {len(current_uploaded_files)} 个文件")
+    else:
+        # 如果没有文件，清空存储
+        st.session_state.current_files = []
+
 def main():
     st.markdown('<div class="main-header">报告评估系统</div>', unsafe_allow_html=True)
     
@@ -355,6 +369,9 @@ def main():
         st.session_state.current_data = None
     if 'last_selected_case' not in st.session_state:
         st.session_state.last_selected_case = None
+    if 'current_files' not in st.session_state:
+        st.session_state.current_files = []
+
     
     # 用户名输入
     st.sidebar.header("👤 用户信息")
@@ -380,16 +397,15 @@ def main():
         type=['jpg', 'jpeg', 'png', 'json'],
         accept_multiple_files=True,
         help="请选择该病例文件夹中的所有文件（图像、报告、预测结果）",
-        on_change = clear_uploaded_session
+        key="file_uploader_widget",
+        on_change=handle_file_upload,
     )
     
-    # 清空上传数据按钮
-    st.sidebar.button("🧹 清空上传数据", on_click=clear_uploaded_session)
 
     # 处理上传
-    if uploaded_files:
+    if st.session_state.current_files:
         try:
-            data = create_data_from_uploaded_files(uploaded_files)
+            data = create_data_from_uploaded_files(st.session_state.current_files)
             st.session_state.current_data = data
             st.sidebar.success("✅ 已加载上传的病例数据")
         except Exception as e:
