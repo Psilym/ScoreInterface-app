@@ -334,6 +334,10 @@ def main():
         st.session_state.current_data = None
     if 'last_selected_case' not in st.session_state:
         st.session_state.last_selected_case = None
+    if 'uploaded_file_names' not in st.session_state:
+        st.session_state.uploaded_file_names = None
+    if 'model_key_seed' not in st.session_state:
+        st.session_state.model_key_seed = 0
     
     # 用户名输入
     st.sidebar.header("👤 用户信息")
@@ -362,11 +366,25 @@ def main():
         help="请选择该病例文件夹中的所有文件（图像、报告、预测结果）"
     )
 
-    # 处理上传
+    # 处理上传（检测重新上传并清空旧数据）
     if uploaded_files:
         try:
+            # 生成本次上传的指纹（文件名+大小）用于判定是否为新一批数据
+            current_fingerprints = sorted([
+                f"{f.name}:{len(f.getvalue())}"
+                for f in uploaded_files
+            ])
+
+            # 如与上一批不同，则清空旧数据与缓存
+            if st.session_state.uploaded_file_names != current_fingerprints:
+                st.cache_data.clear()
+                st.session_state.current_data = None
+                st.session_state.last_selected_case = None
+                st.session_state.model_key_seed += 1  # 重置模型选择控件
+
             data = create_data_from_uploaded_files(uploaded_files)
             st.session_state.current_data = data
+            st.session_state.uploaded_file_names = current_fingerprints
             st.sidebar.success("✅ 已加载上传的病例数据")
         except Exception as e:
             st.error(f"❌ 解析上传数据失败: {e}")
@@ -387,7 +405,7 @@ def main():
                 selected_option = st.radio(
                     "可用模型:",
                     model_options,
-                    key="model_selection"
+                    key=f"model_selection_{st.session_state.model_key_seed}"
                 )
                 selected_model = selected_option.split(" ", 1)[1] if " " in selected_option else selected_option
 
